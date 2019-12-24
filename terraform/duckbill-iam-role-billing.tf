@@ -1,6 +1,6 @@
 # https://www.terraform.io/downloads.html
 provider "aws" {
-  region                  = "us-east-1"
+  region = "us-east-1"
 }
 
 # DuckbillGroup IAM Role
@@ -38,7 +38,10 @@ data "aws_iam_policy_document" "DuckbillGroup_policy_document" {
       "aws-portal:ViewBilling",
       "aws-portal:ViewUsage",
       "budgets:ViewBudget",
-      "pricing:GetProducts",
+      "compute-optimizer:Get*",
+      "glue:BatchGetJobs",
+      "glue:ListJobs",
+      "pricing:GetProducts"
     ]
 
     resources = ["*"]
