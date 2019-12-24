@@ -5,16 +5,16 @@ Resources:
         Type: "AWS::IAM::Role"
         Properties:
             RoleName: "DuckbillGroupRole"
-            AssumeRolePolicyDocument: 
+            AssumeRolePolicyDocument:
                 Version: "2012-10-17"
-                Statement: 
-                  - 
+                Statement:
+                  -
                     Effect: "Allow"
                     Action: "sts:AssumeRole"
-                    Principal: 
+                    Principal:
                         AWS: "789736909639"
-                    Condition: 
-                        StringEquals: 
+                    Condition:
+                        StringEquals:
                             sts:ExternalId: "PlatypusBills"
             ManagedPolicyArns:
                 - !Ref DuckbillGroupBilling
@@ -25,16 +25,18 @@ Resources:
         Type: "AWS::IAM::ManagedPolicy"
         Properties:
             ManagedPolicyName: "DuckbillGroupBilling"
-            PolicyDocument: 
+            PolicyDocument:
                 Version: "2012-10-17"
-                Statement: 
-                  - 
-                    Action: 
+                Statement:
+                  -
+                    Action:
                       - "ce:*"
                       - "aws-portal:ViewBilling"
                       - "aws-portal:ViewUsage"
                       - "budgets:ViewBudget"
+                      - "compute-optimizer:Get*"
+                      - "glue:BatchGetJobs"
+                      - "glue:ListJobs"
                       - "pricing:GetProducts"
                     Effect: "Allow"
                     Resource: "*"
-
