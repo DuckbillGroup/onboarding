@@ -1,4 +1,4 @@
-# These Terraform resrources create a remote access role for Duckbill Group
+# These Terraform resources create a remote access role for Duckbill Group
 # for a Cloud Finance and Analysis engagement.
 
 

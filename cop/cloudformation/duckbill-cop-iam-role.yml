@@ -7,7 +7,7 @@ Resources:
   DuckbillGroupRole:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: DuckbillGroupRole
+      RoleName: DuckbillGroupRole-COP
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:

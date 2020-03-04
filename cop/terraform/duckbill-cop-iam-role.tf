@@ -1,4 +1,4 @@
-# These Terraform resrources create a remote access role for Duckbill Group
+# These Terraform resources create a remote access role for Duckbill Group
 # for a Cost Optimization Project.
 
 
@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "DuckbillGroup_AssumeRole_policy_document" {
 }
 
 resource "aws_iam_role" "DuckbillGroupRole" {
-  name               = "DuckbillGroupRole"
+  name               = "DuckbillGroupRole-COP"
   assume_role_policy = "${data.aws_iam_policy_document.DuckbillGroup_AssumeRole_policy_document.json}"
 }
 
