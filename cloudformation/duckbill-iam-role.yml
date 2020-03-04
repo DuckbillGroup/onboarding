@@ -1,5 +1,7 @@
-AWSTemplateFormatVersion: "2010-09-09"
-Description: "Remote access role for Duckbill Group in support of a Cost Optimization Project"
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Remote access role for Duckbill Group for a Cost Optimization Project.
 
 Parameters:
   CustomerNameSlug:
@@ -11,75 +13,72 @@ Parameters:
     AllowedPattern: ^[a-z0-9-]*$
   CURBucketName:
     Type: String
-    Description: The name of the S3 bucket in which you are storing Cost and Usage Reports.
+    Description: >
+      Name of the S3 bucket in which you are storing Cost and Usage Reports.
     AllowedPattern: ^[a-z0-9-\.]*$
     MinLength: 3
     MaxLength: 63
 
 Resources:
-    DuckbillGroupRole:
-        Type: "AWS::IAM::Role"
-        Properties:
-            RoleName: "DuckbillGroupRole"
-            AssumeRolePolicyDocument:
-                Version: "2012-10-17"
-                Statement:
-                  -
-                    Effect: "Allow"
-                    Action: "sts:AssumeRole"
-                    Principal:
-                        AWS: "789736909639"
-                    Condition:
-                        StringEquals:
-                            sts:ExternalId: "PlatypusBills"
-            ManagedPolicyArns:
-                - !Ref DuckbillGroupBillingPolicy
-                - !Ref DuckbillGroupCURIngestPipelinePolicy
-                - arn:aws:iam::aws:policy/ReadOnlyAccess
-                - arn:aws:iam::aws:policy/job-function/Billing
+  DuckbillGroupRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: DuckbillGroupRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: 'sts:AssumeRole'
+            Principal:
+              AWS: 789736909639
+            Condition:
+              StringEquals:
+                sts:ExternalId: PlatypusBills
+      ManagedPolicyArns:
+        - !Ref DuckbillGroupBillingPolicy
+        - !Ref DuckbillGroupCURIngestPipelinePolicy
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+        - arn:aws:iam::aws:policy/job-function/Billing
 
-    DuckbillGroupBillingPolicy:
-        Type: "AWS::IAM::ManagedPolicy"
-        Properties:
-            ManagedPolicyName: "DuckbillGroupBilling"
-            PolicyDocument:
-                Version: "2012-10-17"
-                Statement:
-                  -
-                    Action:
-                      - "ce:*"
-                      - "cur:*"
-                      - "aws-portal:ViewBilling"
-                      - "aws-portal:ViewUsage"
-                      - "budgets:ViewBudget"
-                      - "compute-optimizer:Get*"
-                      - "glue:BatchGetJobs"
-                      - "glue:ListJobs"
-                      - "pricing:GetProducts"
-                    Effect: "Allow"
-                    Resource: "*"
+  DuckbillGroupBillingPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: DuckbillGroupBilling
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'ce:*'
+              - 'cur:*'
+              - 'aws-portal:ViewBilling'
+              - 'aws-portal:ViewUsage'
+              - 'budgets:ViewBudget'
+              - 'compute-optimizer:Get*'
+              - 'glue:BatchGetJobs'
+              - 'glue:ListJobs'
+              - 'pricing:GetProducts'
+            Effect: Allow
+            Resource: '*'
 
-    DuckbillGroupCURIngestPipelinePolicy:
-        Type: "AWS::IAM::ManagedPolicy"
-        Properties:
-            ManagedPolicyName: "DuckbillGroupCURIngestPipeline"
-            PolicyDocument:
-                Version: "2012-10-17"
-                Statement:
-                  -
-                    Action:
-                      - "s3:GetObject"
-                      - "s3:ListBucket"
-                    Effect: "Allow"
-                    Resource:
-                      - !Sub "arn:aws:s3:::${CURBucketName}"
-                      - !Sub "arn:aws:s3:::${CURBucketName}/*"
-                  -
-                    Action:
-                      - "s3:ListBucket"
-                      - "s3:PutObject"
-                      - "s3:PutObjectAcl"
-                    Effect: "Allow"
-                    Resource:
-                      - !Sub "arn:aws:s3:::dbg-cur-ingest-${CustomerNameSlug}"
-                      - !Sub "arn:aws:s3:::dbg-cur-ingest-${CustomerNameSlug}/*"
+  DuckbillGroupCURIngestPipelinePolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: DuckbillGroupCURIngestPipeline
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:ListBucket'
+              - 's3:GetObject'
+            Effect: Allow
+            Resource:
+              - !Sub 'arn:aws:s3:::${CURBucketName}'
+              - !Sub 'arn:aws:s3:::${CURBucketName}/*'
+          - Action:
+              - 's3:ListBucket'
+              - 's3:PutObject'
+              - 's3:PutObjectAcl'
+            Effect: Allow
+            Resource:
+              - !Sub 'arn:aws:s3:::dbg-cur-ingest-${CustomerNameSlug}'
+              - !Sub 'arn:aws:s3:::dbg-cur-ingest-${CustomerNameSlug}/*'
