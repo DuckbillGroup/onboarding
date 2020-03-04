@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-#
+# Creates all AWS IAM resources required for Duckbill Group remote access
+# for a Cost Optimization Project engagement.
 
 set -euo pipefail
 
@@ -12,11 +13,11 @@ echo "Adding Duckbill Group role and policies..."
 
 aws iam create-role \
 	--role-name DuckbillGroupRole-COP \
-	--assume-role-policy-document file://${this_dir}/assume-role-trust-policy.json
+	--assume-role-policy-document "file://${this_dir}/assume-role-trust-policy.json"
 
 aws iam create-policy \
 	--policy-name DuckbillGroupBilling \
-	--policy-document file://${this_dir}/billing-policy.json
+	--policy-document "file://${this_dir}/billing-policy.json"
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole-COP \
