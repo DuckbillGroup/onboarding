@@ -17,16 +17,8 @@ data "aws_iam_policy_document" "DuckbillGroup_AssumeRole_policy_document" {
 
     principals {
       type        = "AWS"
-      identifiers = ["789736909639"]
+      identifiers = ["753095100886"]
     }
-
-    condition {
-      test     = "StringEquals"
-      variable = "sts:ExternalId"
-
-      values = ["PlatypusBills"]
-    }
-
   }
 }
 

@@ -14,10 +14,7 @@ Resources:
           - Effect: Allow
             Action: 'sts:AssumeRole'
             Principal:
-              AWS: 789736909639
-            Condition:
-              StringEquals:
-                sts:ExternalId: PlatypusBills
+              AWS: 753095100886
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/ReadOnlyAccess
         - arn:aws:iam::aws:policy/job-function/Billing
