@@ -24,7 +24,7 @@ Resources:
   DuckbillGroupRole:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: DuckbillGroupRole
+      RoleName: DuckbillGroupRole-CFA
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -34,7 +34,23 @@ Resources:
               AWS: 753095100886
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/ViewOnlyAccess
+        - !Ref DuckbillGroupResourceDiscoveryPolicy
         - !Ref DuckbillGroupCURIngestPipelinePolicy
+
+  DuckbillGroupResourceDiscoveryPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: DuckbillGroupResourceDiscovery
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'tagging:GetResources'
+              - 's3:GetReplication*'
+              - 's3:GetBucket*'
+              - 'es:ListTags'
+            Effect: Allow
+            Resource: '*'
 
   DuckbillGroupCURIngestPipelinePolicy:
     Type: 'AWS::IAM::ManagedPolicy'
