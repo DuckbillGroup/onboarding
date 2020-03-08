@@ -1,35 +1,36 @@
-# https://www.terraform.io/downloads.html
+# These Terraform resources create a remote access role for Duckbill Group
+# for a Cost Optimization Project.
+
+
+# Providers
+
 provider "aws" {
   region = "us-east-1"
 }
 
+
 # DuckbillGroup IAM Role
+
 data "aws_iam_policy_document" "DuckbillGroup_AssumeRole_policy_document" {
   statement {
     actions = ["sts:AssumeRole"]
 
     principals {
       type        = "AWS"
-      identifiers = ["789736909639"]
+      identifiers = ["753095100886"]
     }
-
-    condition {
-      test     = "StringEquals"
-      variable = "sts:ExternalId"
-
-      values = ["PlatypusBills"]
-    }
-
   }
 }
 
 resource "aws_iam_role" "DuckbillGroupRole" {
-  name               = "DuckbillGroupRole"
+  name               = "DuckbillGroupRole-COP"
   assume_role_policy = "${data.aws_iam_policy_document.DuckbillGroup_AssumeRole_policy_document.json}"
 }
 
-# DuckbillGroup IAM Policy
-data "aws_iam_policy_document" "DuckbillGroup_policy_document" {
+
+# DuckbillGroupBilling IAM Policy
+
+data "aws_iam_policy_document" "DuckbillGroupBilling_policy_document" {
   statement {
     effect = "Allow"
 
@@ -49,15 +50,17 @@ data "aws_iam_policy_document" "DuckbillGroup_policy_document" {
   }
 }
 
-resource "aws_iam_policy" "DuckbillGroup_policy" {
+resource "aws_iam_policy" "DuckbillGroupBilling_policy" {
   name   = "DuckbillGroupBilling"
-  policy = "${data.aws_iam_policy_document.DuckbillGroup_policy_document.json}"
+  policy = "${data.aws_iam_policy_document.DuckbillGroupBilling_policy_document.json}"
 }
 
+
 # Attach IAM Policies to DuckbillGroup Role
-resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroup_policy" {
+
+resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupBilling_policy" {
   role       = "${aws_iam_role.DuckbillGroupRole.name}"
-  policy_arn = "${aws_iam_policy.DuckbillGroup_policy.arn}"
+  policy_arn = "${aws_iam_policy.DuckbillGroupBilling_policy.arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-Billing" {

@@ -1,40 +1,42 @@
+# Duckbill Group Onboarding
+
 ### Purpose
 We’ll be accessing your AWS accounts via an assumed role rather than IAM account. This needs to be set up in every account you have. If that’s not feasible, then apply it to your master payer account and your largest (by spend) account.
 
 ### Usage
-You can set this assumed role up with our CloudFormation template, our Terraform template, or do it manually.
+
+There are two sets of IAM resources here, depending on how we're working together.
+
+If we're working on a *Cost Optimization Project*, please set up the role in the `cop/` directory.
+
+If you've hired us for *Cloud Finance & Analysis*, please set up the role in the `cfa/` directory.
+
+We've provided three ways to set up our role and policies: CloudFormation, Terraform, or AWS CLI.
 
 #### CloudFormation
-* Download the cloudformation/duckbill-iam-role.yml file to your laptop.
-* Go to CloudFormation > Create stack > With new resources (standard).
-* Upload the duckbill-iam-role.yml file.
-* Click through the CloudFormation wizard with the default settings.
-* Click "Create stack".
+
+The `/cloudformation` directory contains a CloudFormation template that creates all required resources.
+
+From your AWS console, please [create a new stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) from this template.
 
 #### Terraform
-* Copy the files in the terraform/ directory of this repo to your laptop.
-* Initialize the Terraform providers.
+
+The `/terraform` directory contains a Terraform config that create all required resources.
+
+You'll need [Terraform](https://www.terraform.io/) installed and AWS credentials for the target account available in your shell.
+
 ```
 $ terraform init
-```
-* If you'd like, you can plan the changes.
-```
-$ terraform plan
-[...]
-
-Plan: 5 to add, 0 to change, 0 to destroy.
-```
-* Apply the changes to create the role.
-```
-$ terraform apply
-[...]
-
-Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+$ terraform plan -out terraform.tfplan
+$ terraform apply terraform.tfplan
 ```
 
-#### Manual
-1. Go to IAM > Roles > Create Role > Another AWS Account: 789736909639
-2. Assign the new role the AWS managed policy ReadOnlyAccess.
-3. Add an additional inline policy, which you can download here.
-4. Enable Require MFA and Require External ID.
-5. Provide us with the External ID and ARN.
+#### AWS CLI
+
+The `/aws-cli` directory contains a script that will create all required resources.
+
+You'll need the [AWS CLI](https://aws.amazon.com/cli/) installed and AWS credentials for the target account available in your shell.
+
+```
+$ ./create-resources.sh
+```

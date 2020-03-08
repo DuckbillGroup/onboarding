@@ -1,0 +1,16 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "tagging:GetResources",
+                "s3:GetReplication*",
+                "s3:GetBucket*",
+                "es:ListTags"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

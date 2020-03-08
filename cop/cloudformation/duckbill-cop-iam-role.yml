@@ -1,0 +1,41 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Remote access role for Duckbill Group for a Cost Optimization Project.
+
+Resources:
+  DuckbillGroupRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: DuckbillGroupRole-COP
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: 'sts:AssumeRole'
+            Principal:
+              AWS: 753095100886
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+        - arn:aws:iam::aws:policy/job-function/Billing
+        - !Ref DuckbillGroupBillingPolicy
+
+  DuckbillGroupBillingPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: DuckbillGroupBilling
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'ce:*'
+              - 'cur:*'
+              - 'aws-portal:ViewBilling'
+              - 'aws-portal:ViewUsage'
+              - 'budgets:ViewBudget'
+              - 'compute-optimizer:Get*'
+              - 'glue:BatchGetJobs'
+              - 'glue:ListJobs'
+              - 'pricing:GetProducts'
+            Effect: Allow
+            Resource: '*'

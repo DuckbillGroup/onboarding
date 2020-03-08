@@ -1,1 +1,6 @@
-.terraform
+**/.terraform
+*.tfstate
+*.tfstate.*
+
+# This file is templated
+**/cur-ingest-pipeline-policy.json

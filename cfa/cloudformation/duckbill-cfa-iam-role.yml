@@ -1,0 +1,76 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Remote access role for Duckbill Group for a Cloud Finance and Analysis
+  engagement.
+
+Parameters:
+  CustomerNameSlug:
+    Type: String
+    Description: >
+      A short, lower-case slug that identifies your company, e.g. acme-corp
+      Duckbill Group will need to know this value, so that we can set up our own
+      infrastructure for you.
+    AllowedPattern: ^[a-z0-9-]*$
+  CURBucketName:
+    Type: String
+    Description: >
+      Name of the S3 bucket in which you are storing Cost and Usage Reports.
+    AllowedPattern: ^[a-z0-9-\.]*$
+    MinLength: 3
+    MaxLength: 63
+
+Resources:
+  DuckbillGroupRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: DuckbillGroupRole-CFA
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: 'sts:AssumeRole'
+            Principal:
+              AWS: 753095100886
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
+        - !Ref DuckbillGroupResourceDiscoveryPolicy
+        - !Ref DuckbillGroupCURIngestPipelinePolicy
+
+  DuckbillGroupResourceDiscoveryPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: DuckbillGroupResourceDiscovery
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'tagging:GetResources'
+              - 's3:GetReplication*'
+              - 's3:GetBucket*'
+              - 'es:ListTags'
+            Effect: Allow
+            Resource: '*'
+
+  DuckbillGroupCURIngestPipelinePolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: DuckbillGroupCURIngestPipeline
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:ListBucket'
+              - 's3:GetObject'
+            Effect: Allow
+            Resource:
+              - !Sub 'arn:aws:s3:::${CURBucketName}'
+              - !Sub 'arn:aws:s3:::${CURBucketName}/*'
+          - Action:
+              - 's3:ListBucket'
+              - 's3:PutObject'
+              - 's3:PutObjectAcl'
+            Effect: Allow
+            Resource:
+              - !Sub 'arn:aws:s3:::dbg-cur-ingest-${CustomerNameSlug}'
+              - !Sub 'arn:aws:s3:::dbg-cur-ingest-${CustomerNameSlug}/*'
