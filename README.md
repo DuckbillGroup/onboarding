@@ -27,7 +27,7 @@ You'll need [Terraform](https://www.terraform.io/) installed and AWS credentials
 
 ```
 $ terraform init
-$ terraform plan -out terraform.tfplan
+$ terraform plan -out terraform.tfplan -var customer_name_slug=<your-company-name> -var cur_bucket_name=<your-billing-bucket>
 $ terraform apply terraform.tfplan
 ```
 
