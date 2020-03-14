@@ -30,8 +30,10 @@ The script will prompt you for a couple of required parameters:
 
 *CUR S3 Bucket Name:* The name of the S3 bucket in which you are storing Cost and Usage Reports. If you haven't set up Cost and Usage reports in your master payer account yet, talk to us before applying this role.
 
+Please make sure to communicate your chosen *Customer Name Slug* to us after the script completes successfully.
+
 ## Developer Information
 
-We lint our shell scripts with `shellcheck`, which runs in CI on every PR. You can run the linter locally:
+We lint our shell scripts with `shellcheck`, which runs in CI on every PR. If you have `shellcheck` installed locally, you can run the linter:
 
     $ make lint
