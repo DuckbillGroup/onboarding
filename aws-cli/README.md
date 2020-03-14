@@ -4,7 +4,7 @@ You can use the AWS CLI to apply our required IAM resources into your AWS accoun
 
 Depending on what you've hired us to do, there are a couple of different roles you can create. We'll let you know which role to use.
 
-If we're working on a *Cost Optimization Project* for you, please set up the [Cost Optimization Project (COP) Role](#Cost-Optimization-Project-Role). This role should ideally be set up in every account you have. If that’s not feasible, then apply it to your master payer account and your largest (by spend) account.
+If we're working on a *Cost Optimization Project* for you, please set up the [Cost Optimization Project Role](#Cost-Optimization-Project-Role). This role should ideally be set up in every account you have. If that’s not feasible, then apply it to your master payer account and your largest (by spend) account.
 
 If you've hired us for a *Cloud Finance & Analysis* engagement, please set up the [Cloud Finance Analysis Role](#Cloud-Finance-Analysis-Role). This role should be applied to your master payer AWS account only.
 
