@@ -1,0 +1,16 @@
+name: PR Checks
+on: pull_request
+jobs:
+  run-linters:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v1
+      # Python, terraform 0.12 and shellcheck are already installed in the Ubuntu 18.04 runner
+      # https://github.com/actions/virtual-environments/blob/master/images/linux/Ubuntu1804-README.md
+      - name: Lint AWS-CLI scripts
+        run: cd aws-cli && make lint
+      - name: Lint CloudFormation YAML
+        run: pip install cfn-lint && cd cloudformation && make lint
+      - name: Lint Terraform
+        run: cd terraform && make lint
