@@ -22,8 +22,13 @@ destroy-%:
 fmt-%:
 	@cd $(*) && terraform fmt
 
+fmt-%: fmt-cfa fmt-cop
+
+fmtcheck-%:
+	@cd $(*) && terraform fmt -check -diff
+
 clean-%:
 	@cd $(*) && rm -rf terraform.* && rm -rf .terraform
 
-lint: terraform-version fmt-cfa fmt-cop
+lint: terraform-version fmtcheck-cfa fmtcheck-cop
 	@echo "terraform fmt ok"
