@@ -24,7 +24,7 @@ cat <<EOM
 Please enter the name of the S3 bucket in which you are storing Cost and Usage Reports.
 
 EOM
-read -rp 'CUR S3 bucket name: ' cur_bucket_name
+read -rp 'CUR S3 Bucket Name: ' cur_bucket_name
 
 sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/cur-ingest-pipeline-policy.json.template" > "${this_dir}/cur-ingest-pipeline-policy.json"
