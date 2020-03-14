@@ -1,6 +1,9 @@
-deps:
-	@hash aws > /dev/null 2>&1 || \
-		(echo "ERROR: 'aws' not found. AWS CLI needs to be installed and available on your PATH."; exit 1)
+cmd-exists-%:
+	@hash $(*) > /dev/null 2>&1 || \
+		(echo "ERROR: '$(*)' must be installed and available on your PATH."; exit 1)
 
-create-%: deps
+create-%: cmd-exists-aws
 	@cd $(*) && ./create-resources.sh
+
+lint: cmd-exists-shellcheck
+	@shellcheck **/*.sh && echo "shellcheck ok"

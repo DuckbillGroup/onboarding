@@ -29,6 +29,6 @@ aws iam attach-role-policy \
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole-COP \
-	--policy-arn arn:aws:iam::${account_number}:policy/DuckbillGroupBilling
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupBilling"
 
 echo "Done!"

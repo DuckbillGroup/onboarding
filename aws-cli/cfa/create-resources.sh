@@ -17,14 +17,14 @@ Duckbill Group will need to know this value, so that we can set up our own
 infrastructure for you.
 
 EOM
-read -p 'Customer name slug: ' customer_name_slug
+read -rp 'Customer name slug: ' customer_name_slug
 
 cat <<EOM
 
 Please enter the name of the S3 bucket in which you are storing Cost and Usage Reports.
 
 EOM
-read -p 'CUR S3 bucket name: ' cur_bucket_name
+read -rp 'CUR S3 bucket name: ' cur_bucket_name
 
 sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/cur-ingest-pipeline-policy.json.template" > "${this_dir}/cur-ingest-pipeline-policy.json"
@@ -50,10 +50,10 @@ aws iam attach-role-policy \
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole-CFA \
-	--policy-arn arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery"
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole-CFA \
-	--policy-arn arn:aws:iam::${account_number}:policy/DuckbillGroupCURIngestPipeline
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupCURIngestPipeline"
 
 echo "Done!"
