@@ -4,7 +4,6 @@
 
 set -euo pipefail
 
-this_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 user_arn=$(aws sts get-caller-identity --output text --query 'Arn' | tr -d '\r')
 account_number=$(aws sts get-caller-identity --output text --query 'Account' | tr -d '\r')
 
