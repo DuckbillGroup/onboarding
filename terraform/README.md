@@ -52,6 +52,21 @@ This will only work from the same computer that was used to create the resources
 
 If you don't have access to the existing state file, you can delete the resources manually.
 
+### Deleting Cost Optimization Project Resources Manually
+
+Log into the AWS console,
+
+ - navigate to `IAM > Policies` and delete the `DuckbillGroupBilling` policy
+ - navigate to `IAM > Roles` and delete the `DuckbillGroupRole-COP` role
+
+### Deleting Cloud Finance Analysis Resources Manually
+
+Log into the AWS console,
+
+ - navigate to `IAM > Policies` and delete the `DuckbillGroupResourceDiscovery` policy
+ - navigate to `IAM > Policies` and delete the `DuckbillGroupCURIngestPipeline` policy
+ - navigate to `IAM > Roles` and delete the `DuckbillGroupRole-CFA` role
+
 ## Advanced Usage
 
 The `Makefile` contains a number of tasks for working with Terraform. All tasks accept a  `-cop` or `-cfa` suffix, and will operate in the `cop/` or `cfa/` directory respectively.

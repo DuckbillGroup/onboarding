@@ -42,6 +42,23 @@ or
 
     $ make delete-cfa
 
+If you prefer or need to use the AWS console, you can delete the resources manually.
+
+### Deleting Cost Optimization Project Resources Manually
+
+Log into the AWS console,
+
+ - navigate to `IAM > Policies` and delete the `DuckbillGroupBilling` policy
+ - navigate to `IAM > Roles` and delete the `DuckbillGroupRole-COP` role
+
+### Deleting Cloud Finance Analysis Resources Manually
+
+Log into the AWS console,
+
+ - navigate to `IAM > Policies` and delete the `DuckbillGroupResourceDiscovery` policy
+ - navigate to `IAM > Policies` and delete the `DuckbillGroupCURIngestPipeline` policy
+ - navigate to `IAM > Roles` and delete the `DuckbillGroupRole-CFA` role
+
 ## Developer Information
 
 We lint our shell scripts with `shellcheck`, which runs in CI on every PR. If you have `shellcheck` installed locally, you can run the linter:
