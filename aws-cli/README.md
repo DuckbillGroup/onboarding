@@ -32,6 +32,16 @@ The script will prompt you for a couple of required parameters:
 
 Please make sure to communicate your chosen *Customer Name Slug* to us after the script completes successfully.
 
+## Deleting Resources
+
+After we've completed our engagement, you can delete our IAM role and policy resources from your AWS account:
+
+    $ make delete-cop
+
+or
+
+    $ make delete-cfa
+
 ## Developer Information
 
 We lint our shell scripts with `shellcheck`, which runs in CI on every PR. If you have `shellcheck` installed locally, you can run the linter:

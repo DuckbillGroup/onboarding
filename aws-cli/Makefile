@@ -5,5 +5,8 @@ cmd-exists-%:
 create-%: cmd-exists-aws
 	@cd $(*) && ./create-resources.sh
 
+delete-%: cmd-exists-aws
+	@cd $(*) && ./delete-resources.sh
+
 lint: cmd-exists-shellcheck
 	@shellcheck **/*.sh && echo "shellcheck ok"
