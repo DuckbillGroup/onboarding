@@ -38,6 +38,20 @@ You'll be prompted to confirm the `apply` action.
 
 Please make sure to communicate your chosen `customer_name_slug` to us after you've successfully created the stack.
 
+## Deleting Resources
+
+After we've completed our engagement, you can delete our IAM role and policy resources from your AWS account:
+
+    $ make destroy-cop
+
+or
+
+    $ make destroy-cfa
+
+This will only work from the same computer that was used to create the resources (i.e. the `terraform.tfstate` file is present locally).
+
+If you don't have access to the existing state file, you can delete the resources manually.
+
 ## Advanced Usage
 
 The `Makefile` contains a number of tasks for working with Terraform. All tasks accept a  `-cop` or `-cfa` suffix, and will operate in the `cop/` or `cfa/` directory respectively.

@@ -34,6 +34,10 @@ You can accept all the default options, or you can adjust the stack options per 
 
 Please make sure to communicate your chosen `CustomerNameSlug` to us after you've successfully created the stack.
 
+## Deleting Resources
+
+After we've completed our engagement, you can delete our IAM role and policy resources from your AWS account by [deleting the CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html).
+
 ## Developer Information
 
 We lint our CloudFormation templates with `cfn-lint`, which runs in CI on every PR. If you have `cfn-lint` installed locally, you can run the linter:
