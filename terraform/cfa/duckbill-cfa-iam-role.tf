@@ -18,7 +18,8 @@ variable "cur_bucket_name" {
 # Providers
 
 provider "aws" {
-  region = "us-east-1"
+  region  = "us-east-1"
+  version = "~> 2.53"
 }
 
 
