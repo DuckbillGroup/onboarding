@@ -33,7 +33,7 @@ Resources:
             Principal:
               AWS: 753095100886
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
+        - arn:aws:iam::aws:policy/job-function/ReadOnlyAccess
         - !Ref DuckbillGroupResourceDiscoveryPolicy
         - !Ref DuckbillGroupCURIngestPipelinePolicy
 

@@ -107,7 +107,7 @@ resource "aws_iam_policy" "DuckbillGroupCURIngestPipeline_policy" {
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-ViewOnlyAccess" {
   role       = "${aws_iam_role.DuckbillGroupRole.name}"
-  policy_arn = "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
+  policy_arn = "arn:aws:iam::aws:policy/job-function/ReadOnlyAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupResourceDiscovery_policy" {
