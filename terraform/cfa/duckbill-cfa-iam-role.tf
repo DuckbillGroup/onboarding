@@ -49,10 +49,39 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
     effect = "Allow"
 
     actions = [
-      "tagging:GetResources",
-      "s3:GetReplication*",
+      "acm:Describe*",
+      "apigateway:GET",
+      "batch:Describe*",
+      "cloudhsm:Describe*",
+      "cloudhsm:List*",
+      "cloudwatch:Describe*",
+      "dax:Describe*",
+      "dlm:Get*",
+      "dms:Describe*",
+      "ec2:Describe*",
+      "eks:Describe*",
+      "eks:List*",
+      "es:ListTags",
+      "fsx:Describe*",
+      "glue:Get*",
+      "health:Describe*",
+      "iam:GetRole",
+      "iam:GetUser",
+      "kafka:List*",
+      "kms:Describe*",
+      "kms:List*",
+      "lightsail:GetInstances",
+      "lightsail:GetLoadBalancers",
+      "lightsail:GetRelationalDatabases",
+      "mq:List*",
+      "redshift:Describe*",
       "s3:GetBucket*",
-      "es:ListTags"
+      "s3:GetReplication*",
+      "secretsmanager:ListSecrets",
+      "shield:List*",
+      "snowball:List*",
+      "ssm:Describe*",
+      "tag:Get*"
     ]
 
     resources = ["*"]
@@ -107,7 +136,7 @@ resource "aws_iam_policy" "DuckbillGroupCURIngestPipeline_policy" {
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-ViewOnlyAccess" {
   role       = "${aws_iam_role.DuckbillGroupRole.name}"
-  policy_arn = "arn:aws:iam::aws:policy/job-function/ReadOnlyAccess"
+  policy_arn = "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupResourceDiscovery_policy" {
