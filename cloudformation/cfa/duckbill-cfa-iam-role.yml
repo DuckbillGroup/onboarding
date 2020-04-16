@@ -33,7 +33,7 @@ Resources:
             Principal:
               AWS: 753095100886
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/ReadOnlyAccess
+        - arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
         - !Ref DuckbillGroupResourceDiscoveryPolicy
         - !Ref DuckbillGroupCURIngestPipelinePolicy
 
@@ -45,10 +45,39 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Action:
-              - 'tagging:GetResources'
-              - 's3:GetReplication*'
-              - 's3:GetBucket*'
+              - 'acm:Describe*'
+              - 'apigateway:GET'
+              - 'batch:Describe*'
+              - 'cloudhsm:Describe*'
+              - 'cloudhsm:List*'
+              - 'cloudwatch:Describe*'
+              - 'dax:Describe*'
+              - 'dlm:Get*'
+              - 'dms:Describe*'
+              - 'ec2:Describe*'
+              - 'eks:Describe*'
+              - 'eks:List*'
               - 'es:ListTags'
+              - 'fsx:Describe*'
+              - 'glue:Get*'
+              - 'health:Describe*'
+              - 'iam:GetRole'
+              - 'iam:GetUser'
+              - 'kafka:List*'
+              - 'kms:Describe*'
+              - 'kms:List*'
+              - 'lightsail:GetInstances'
+              - 'lightsail:GetLoadBalancers'
+              - 'lightsail:GetRelationalDatabases'
+              - 'mq:List*'
+              - 'redshift:Describe*'
+              - 's3:GetBucket*'
+              - 's3:GetReplication*'
+              - 'secretsmanager:ListSecrets'
+              - 'shield:List*'
+              - 'snowball:List*'
+              - 'ssm:Describe*'
+              - 'tag:Get*'
             Effect: Allow
             Resource: '*'
 
