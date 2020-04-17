@@ -61,6 +61,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "ec2:Describe*",
       "eks:Describe*",
       "eks:List*",
+      "elasticfilesystem:Describe*",
       "es:ListTags",
       "fsx:Describe*",
       "glue:Get*",
