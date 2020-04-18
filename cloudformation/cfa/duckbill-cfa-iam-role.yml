@@ -51,6 +51,10 @@ Resources:
               - 'cloudhsm:Describe*'
               - 'cloudhsm:List*'
               - 'cloudwatch:Describe*'
+              - 'codebuild:BatchGetProjects'
+              - 'codecommit:BatchGetRepositories'
+              - 'cognito-identity:Describe*'
+              - 'cognito-idp:Describe*'
               - 'dax:Describe*'
               - 'dlm:Get*'
               - 'dms:Describe*'
@@ -77,6 +81,7 @@ Resources:
               - 'secretsmanager:ListSecrets'
               - 'shield:List*'
               - 'snowball:List*'
+              - 'sns:GetTopicAttributes'
               - 'ssm:Describe*'
               - 'tag:Get*'
             Effect: Allow

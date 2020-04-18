@@ -55,6 +55,10 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "cloudhsm:Describe*",
       "cloudhsm:List*",
       "cloudwatch:Describe*",
+      "codebuild:BatchGetProjects",
+      "codecommit:BatchGetRepositories",
+      "cognito-identity:Describe*",
+      "cognito-idp:Describe*",
       "dax:Describe*",
       "dlm:Get*",
       "dms:Describe*",
@@ -81,6 +85,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "secretsmanager:ListSecrets",
       "shield:List*",
       "snowball:List*",
+      "sns:GetTopicAttributes",
       "ssm:Describe*",
       "tag:Get*"
     ]
