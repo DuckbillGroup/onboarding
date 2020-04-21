@@ -62,6 +62,7 @@ Resources:
               - 'eks:Describe*'
               - 'eks:List*'
               - 'elasticfilesystem:Describe*'
+              - 'elasticbeanstalk:ListTagsForResource'
               - 'es:ListTags'
               - 'fsx:Describe*'
               - 'glue:Get*'
