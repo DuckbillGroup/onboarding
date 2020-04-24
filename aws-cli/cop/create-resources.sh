@@ -19,9 +19,13 @@ aws iam create-policy \
 	--policy-name DuckbillGroupBilling \
 	--policy-document "file://${this_dir}/billing-policy.json"
 
+aws iam create-policy \
+	--policy-name DuckbillGroupResourceDiscovery \
+	--policy-document "file://${this_dir}/resourcediscovery-policy.json"
+
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole-COP \
-	--policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+	--policy-arn arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole-COP \
@@ -30,5 +34,9 @@ aws iam attach-role-policy \
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole-COP \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupBilling"
+
+aws iam attach-role-policy \
+	--role-name DuckbillGroupRole-COP \
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery"
 
 echo "Done!"

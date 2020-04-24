@@ -12,7 +12,7 @@ echo "Deleting Duckbill Group role and policies..."
 
 aws iam detach-role-policy \
 	--role-name DuckbillGroupRole-COP \
-	--policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+	--policy-arn arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
 
 aws iam detach-role-policy \
 	--role-name DuckbillGroupRole-COP \
@@ -22,8 +22,15 @@ aws iam detach-role-policy \
 	--role-name DuckbillGroupRole-COP \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupBilling"
 
+aws iam detach-role-policy \
+	--role-name DuckbillGroupRole-COP \
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery"
+
 aws iam delete-policy \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupBilling"
+
+aws iam delete-policy \
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery"
 
 aws iam delete-role \
 	--role-name DuckbillGroupRole-COP
