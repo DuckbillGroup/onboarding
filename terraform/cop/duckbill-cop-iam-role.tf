@@ -117,7 +117,7 @@ resource "aws_iam_policy" "DuckbillGroupResourceDiscovery_policy" {
 
 # Attach IAM Policies to DuckbillGroup Role
 
-resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupBilling_policy" {
+resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupBilling" {
   role       = "${aws_iam_role.DuckbillGroupRole.name}"
   policy_arn = "${aws_iam_policy.DuckbillGroupBilling_policy.arn}"
 }
@@ -127,12 +127,12 @@ resource "aws_iam_role_policy_attachment" "duckbill-attach-Billing" {
   policy_arn = "arn:aws:iam::aws:policy/job-function/Billing"
 }
 
-resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupResourceDiscovery_policy" {
+resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupResourceDiscovery" {
   role       = "${aws_iam_role.DuckbillGroupRole.name}"
   policy_arn = "${aws_iam_policy.DuckbillGroupResourceDiscovery_policy.arn}"
 }
 
-resource "aws_iam_role_policy_attachment" "duckbill-attach-ReadOnlyAccess" {
+resource "aws_iam_role_policy_attachment" "duckbill-attach-ViewOnlyAccess" {
   role       = "${aws_iam_role.DuckbillGroupRole.name}"
   policy_arn = "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
 }

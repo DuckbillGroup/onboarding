@@ -24,13 +24,13 @@ aws iam detach-role-policy \
 
 aws iam detach-role-policy \
 	--role-name DuckbillGroupRole-COP \
-	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscoveryPolicy"
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery"
 
 aws iam delete-policy \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupBilling"
 
 aws iam delete-policy \
-	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscoveryPolicy"
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery"
 
 aws iam delete-role \
 	--role-name DuckbillGroupRole-COP
