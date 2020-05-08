@@ -2,7 +2,7 @@
 
 You can use [Terraform](https://www.terraform.io/) to apply our required IAM resources into your AWS account.
 
-Our IAM resources should ideally be set up in every AWS account you have. If that’s not feasible, then please apply it to your master payer account and your largest (by spend) accounts.
+Our IAM role should ideally be set up in every AWS account you have. If that’s not feasible, then please apply it to your master payer account and your largest (by spend) accounts.
 
 ## Prerequisites
 
