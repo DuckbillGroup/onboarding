@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Deletes all AWS IAM resources required for Duckbill Group remote access
-# for a Cloud Finance and Analysis engagement.
+# Deletes all AWS IAM resources required for Duckbill Group remote access.
 
 set -euo pipefail
 

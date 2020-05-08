@@ -3,10 +3,10 @@ cmd-exists-%:
 		(echo "ERROR: '$(*)' must be installed and available on your PATH."; exit 1)
 
 create: cmd-exists-aws
-	@cd ./create-resources.sh
+	@./create-resources.sh
 
 delete: cmd-exists-aws
-	@cd ./delete-resources.sh
+	@./delete-resources.sh
 
 lint: cmd-exists-shellcheck
 	@shellcheck *.sh && echo "shellcheck ok"
