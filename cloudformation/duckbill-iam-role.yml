@@ -1,8 +1,7 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 Description: >
-  Remote access role for Duckbill Group for a Cloud Finance and Analysis
-  engagement.
+  Remote access role for Duckbill Group.
 
 Parameters:
   CustomerNameSlug:
@@ -24,7 +23,7 @@ Resources:
   DuckbillGroupRole:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: DuckbillGroupRole-CFA
+      RoleName: DuckbillGroupRole
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -34,8 +33,30 @@ Resources:
               AWS: 753095100886
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
+        - arn:aws:iam::aws:policy/job-function/Billing
+        - !Ref DuckbillGroupBillingPolicy
         - !Ref DuckbillGroupResourceDiscoveryPolicy
         - !Ref DuckbillGroupCURIngestPipelinePolicy
+
+  DuckbillGroupBillingPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: DuckbillGroupBilling
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'ce:*'
+              - 'cur:*'
+              - 'aws-portal:ViewBilling'
+              - 'aws-portal:ViewUsage'
+              - 'budgets:ViewBudget'
+              - 'compute-optimizer:Get*'
+              - 'glue:BatchGetJobs'
+              - 'glue:ListJobs'
+              - 'pricing:GetProducts'
+            Effect: Allow
+            Resource: '*'
 
   DuckbillGroupResourceDiscoveryPolicy:
     Type: 'AWS::IAM::ManagedPolicy'

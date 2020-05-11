@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Creates all AWS IAM resources required for Duckbill Group remote access
-# for a Cloud Finance and Analysis engagement.
+# Creates all AWS IAM resources required for Duckbill Group remote access.
 
 set -euo pipefail
 
@@ -33,8 +32,12 @@ echo "Logged into AWS as ${user_arn}"
 echo "Adding Duckbill Group role and policies..."
 
 aws iam create-role \
-	--role-name DuckbillGroupRole-CFA \
+	--role-name DuckbillGroupRole \
 	--assume-role-policy-document "file://${this_dir}/assume-role-trust-policy.json"
+
+aws iam create-policy \
+	--policy-name DuckbillGroupBilling \
+	--policy-document "file://${this_dir}/billing-policy.json"
 
 aws iam create-policy \
 	--policy-name DuckbillGroupResourceDiscovery \
@@ -45,15 +48,23 @@ aws iam create-policy \
 	--policy-document "file://${this_dir}/cur-ingest-pipeline-policy.json"
 
 aws iam attach-role-policy \
-	--role-name DuckbillGroupRole-CFA \
+	--role-name DuckbillGroupRole \
 	--policy-arn arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
 
 aws iam attach-role-policy \
-	--role-name DuckbillGroupRole-CFA \
+	--role-name DuckbillGroupRole \
+	--policy-arn arn:aws:iam::aws:policy/job-function/Billing
+
+aws iam attach-role-policy \
+	--role-name DuckbillGroupRole \
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupBilling"
+
+aws iam attach-role-policy \
+	--role-name DuckbillGroupRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery"
 
 aws iam attach-role-policy \
-	--role-name DuckbillGroupRole-CFA \
+	--role-name DuckbillGroupRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupCURIngestPipeline"
 
 echo "Done!"
