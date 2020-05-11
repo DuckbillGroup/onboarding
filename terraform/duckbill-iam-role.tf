@@ -108,6 +108,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "lightsail:GetRelationalDatabases",
       "mq:List*",
       "redshift:Describe*",
+      "s3:GetAnalyticsConfiguration",
       "s3:GetBucket*",
       "s3:GetReplication*",
       "secretsmanager:ListSecrets",

@@ -98,6 +98,7 @@ Resources:
               - 'lightsail:GetRelationalDatabases'
               - 'mq:List*'
               - 'redshift:Describe*'
+              - 's3:GetAnalyticsConfiguration'
               - 's3:GetBucket*'
               - 's3:GetReplication*'
               - 'secretsmanager:ListSecrets'
