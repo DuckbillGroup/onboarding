@@ -31,6 +31,9 @@ Resources:
             Action: 'sts:AssumeRole'
             Principal:
               AWS: 753095100886
+            Condition:
+              Bool:
+                aws:MultiFactorAuthPresent: true
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
         - arn:aws:iam::aws:policy/job-function/Billing
