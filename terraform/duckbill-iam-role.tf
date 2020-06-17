@@ -32,11 +32,6 @@ data "aws_iam_policy_document" "DuckbillGroup_AssumeRole_policy_document" {
       type        = "AWS"
       identifiers = ["753095100886"]
     }
-    condition {
-      test     = "Bool"
-      variable = "aws:MultiFactorAuthPresent"
-      values   = ["true"]
-    }
   }
 }
 

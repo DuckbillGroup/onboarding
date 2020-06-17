@@ -7,12 +7,7 @@
       "Principal": {
         "AWS": "arn:aws:iam::753095100886:root"
       },
-      "Action": "sts:AssumeRole",
-      "Condition": {
-        "Bool": {
-          "aws:MultiFactorAuthPresent": "true"
-        }
-      }
+      "Action": "sts:AssumeRole"
     }
   ]
 }
