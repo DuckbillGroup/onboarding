@@ -98,6 +98,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "fsx:Describe*",
       "glue:Get*",
       "health:Describe*",
+      "iam:GetPolicyVersion",
       "iam:GetRole",
       "iam:GetUser",
       "kafka:List*",
