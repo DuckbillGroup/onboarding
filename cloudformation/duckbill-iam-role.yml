@@ -88,6 +88,7 @@ Resources:
               - 'fsx:Describe*'
               - 'glue:Get*'
               - 'health:Describe*'
+              - 'iam:GetPolicyVersion'
               - 'iam:GetRole'
               - 'iam:GetUser'
               - 'kafka:List*'
