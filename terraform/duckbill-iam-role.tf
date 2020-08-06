@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "DuckbillGroupBilling_policy_document" {
 
     actions = [
       "ce:*",
-      "cur:*",
+      "cur:DescribeReportDefinitions",
       "aws-portal:ViewBilling",
       "aws-portal:ViewUsage",
       "budgets:ViewBudget",
@@ -95,6 +95,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "elasticbeanstalk:ListTagsForResource",
       "elasticfilesystem:Describe*",
       "es:ListTags",
+      "es:DescribeReservedElasticsearchInstances",
       "fsx:Describe*",
       "glue:Get*",
       "health:Describe*",
@@ -111,6 +112,8 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "lightsail:GetInstances",
       "lightsail:GetLoadBalancers",
       "lightsail:GetRelationalDatabases",
+      "medialive:Describe*",
+      "medialive:List*",
       "mq:List*",
       "redshift:Describe*",
       "s3:GetAnalyticsConfiguration",

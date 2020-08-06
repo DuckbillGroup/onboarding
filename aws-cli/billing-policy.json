@@ -8,7 +8,7 @@
                 "pricing:GetProducts",
                 "glue:ListJobs",
                 "glue:BatchGetJobs",
-                "cur:*",
+                "cur:DescribeReportDefinitions",
                 "compute-optimizer:Get*",
                 "ce:*",
                 "budgets:ViewBudget",

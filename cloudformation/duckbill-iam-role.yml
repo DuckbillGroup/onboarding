@@ -47,7 +47,7 @@ Resources:
         Statement:
           - Action:
               - 'ce:*'
-              - 'cur:*'
+              - 'cur:DescribeReportDefinitions'
               - 'aws-portal:ViewBilling'
               - 'aws-portal:ViewUsage'
               - 'budgets:ViewBudget'
@@ -85,6 +85,7 @@ Resources:
               - 'elasticfilesystem:Describe*'
               - 'elasticbeanstalk:ListTagsForResource'
               - 'es:ListTags'
+              - 'es:DescribeReservedElasticsearchInstances'
               - 'fsx:Describe*'
               - 'glue:Get*'
               - 'health:Describe*'
@@ -101,6 +102,8 @@ Resources:
               - 'lightsail:GetInstances'
               - 'lightsail:GetLoadBalancers'
               - 'lightsail:GetRelationalDatabases'
+              - 'medialive:Describe*'
+              - 'medialive:list*'
               - 'mq:List*'
               - 'redshift:Describe*'
               - 's3:GetAnalyticsConfiguration'
