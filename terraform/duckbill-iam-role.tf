@@ -112,6 +112,8 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "lightsail:GetInstances",
       "lightsail:GetLoadBalancers",
       "lightsail:GetRelationalDatabases",
+      "medialive:Describe*",
+      "medialive:List*",
       "mq:List*",
       "redshift:Describe*",
       "s3:GetAnalyticsConfiguration",

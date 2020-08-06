@@ -41,6 +41,8 @@
                 "lightsail:GetInstances",
                 "lightsail:GetLoadBalancers",
                 "lightsail:GetRelationalDatabases",
+                "medialive:Describe*",
+                "medialive:List*",
                 "mq:List*",
                 "redshift:Describe*",
                 "s3:GetAnalyticsConfiguration",
