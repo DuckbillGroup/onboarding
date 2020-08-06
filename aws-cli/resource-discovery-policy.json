@@ -24,6 +24,7 @@
                 "elasticbeanstalk:ListTagsForResource",
                 "elasticfilesystem:Describe*",
                 "es:ListTags",
+                "es:DescribeReservedElasticsearchInstances",
                 "fsx:Describe*",
                 "glue:Get*",
                 "health:Describe*",

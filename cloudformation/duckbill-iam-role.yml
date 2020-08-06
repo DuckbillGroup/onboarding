@@ -85,6 +85,7 @@ Resources:
               - 'elasticfilesystem:Describe*'
               - 'elasticbeanstalk:ListTagsForResource'
               - 'es:ListTags'
+							- 'es:DescribeReservedElasticsearchInstances'
               - 'fsx:Describe*'
               - 'glue:Get*'
               - 'health:Describe*'
