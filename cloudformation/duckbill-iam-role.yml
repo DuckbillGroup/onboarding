@@ -47,7 +47,7 @@ Resources:
         Statement:
           - Action:
               - 'ce:*'
-              - 'cur:*'
+              - 'cur:DescribeReportDefinitions'
               - 'aws-portal:ViewBilling'
               - 'aws-portal:ViewUsage'
               - 'budgets:ViewBudget'

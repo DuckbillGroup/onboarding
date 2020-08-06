@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "DuckbillGroupBilling_policy_document" {
 
     actions = [
       "ce:*",
-      "cur:*",
+      "cur:DescribeReportDefinitions",
       "aws-portal:ViewBilling",
       "aws-portal:ViewUsage",
       "budgets:ViewBudget",
