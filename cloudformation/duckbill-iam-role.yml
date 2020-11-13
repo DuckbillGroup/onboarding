@@ -18,6 +18,10 @@ Parameters:
     AllowedPattern: ^[a-z0-9-\.]*$
     MinLength: 3
     MaxLength: 63
+  ExternalID:
+    Type: String
+    Description: >
+      The External ID provided to you by Duckbill Cloud Economist
 
 Resources:
   DuckbillGroupRole:
@@ -31,6 +35,10 @@ Resources:
             Action: 'sts:AssumeRole'
             Principal:
               AWS: 753095100886
+            Condition:
+              StringEquals:
+                sts:ExternalId:
+                  Ref: ExternalID
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
         - arn:aws:iam::aws:policy/job-function/Billing

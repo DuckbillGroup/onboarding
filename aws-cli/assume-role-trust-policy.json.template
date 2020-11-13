@@ -8,6 +8,11 @@
         "AWS": "arn:aws:iam::753095100886:root"
       },
       "Action": "sts:AssumeRole"
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "EXTERNAL_ID"
+        }
+      }
     }
   ]
 }

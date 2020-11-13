@@ -25,8 +25,18 @@ Please enter the name of the S3 bucket in which you are storing Cost and Usage R
 EOM
 read -rp 'CUR S3 Bucket Name: ' cur_bucket_name
 
+cat <<EOM
+
+Please enter the External ID provided to you by Duckbill Cloud Economists
+
+EOM
+read -rp 'External ID: ' external_id
+
 sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/cur-ingest-pipeline-policy.json.template" > "${this_dir}/cur-ingest-pipeline-policy.json"
+
+sed "s/EXTERNAL_ID/${external_id}/g" \
+	"${this_dir}/assume-role-trust-policy.json.template" > "${this_dir}/assume-role-trust-policy.json"
 
 echo "Logged into AWS as ${user_arn}"
 echo "Adding Duckbill Group role and policies..."
