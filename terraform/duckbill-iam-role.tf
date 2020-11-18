@@ -13,6 +13,11 @@ variable "cur_bucket_name" {
   description = "Name of the S3 bucket in which you are storing Cost and Usage Reports."
 }
 
+variable "external_id" {
+  type        = string
+  description = "Customer Specific External ID string"
+}
+
 
 # Providers
 
@@ -31,6 +36,12 @@ data "aws_iam_policy_document" "DuckbillGroup_AssumeRole_policy_document" {
     principals {
       type        = "AWS"
       identifiers = ["753095100886"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "sts:ExternalId"
+      values   = ["${var.external_id}"]
     }
   }
 }
