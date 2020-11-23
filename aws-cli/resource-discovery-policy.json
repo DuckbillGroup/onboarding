@@ -23,6 +23,7 @@
                 "eks:List*",
                 "elasticbeanstalk:ListTagsForResource",
                 "elasticfilesystem:Describe*",
+                "elasticmapreduce:Describe*",
                 "es:ListTags",
                 "es:DescribeReservedElasticsearchInstances",
                 "fsx:Describe*",

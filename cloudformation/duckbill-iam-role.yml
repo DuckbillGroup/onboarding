@@ -92,6 +92,7 @@ Resources:
               - 'eks:List*'
               - 'elasticfilesystem:Describe*'
               - 'elasticbeanstalk:ListTagsForResource'
+              - 'elasticmapreduce:Describe*'
               - 'es:ListTags'
               - 'es:DescribeReservedElasticsearchInstances'
               - 'fsx:Describe*'

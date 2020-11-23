@@ -105,6 +105,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "eks:List*",
       "elasticbeanstalk:ListTagsForResource",
       "elasticfilesystem:Describe*",
+      "elasticmapreduce:Describe*",
       "es:ListTags",
       "es:DescribeReservedElasticsearchInstances",
       "fsx:Describe*",
