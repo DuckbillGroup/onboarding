@@ -124,8 +124,8 @@ Resources:
               - 's3:GetAnalyticsConfiguration'
               - 's3:GetBucket*'
               - 's3:GetReplication*'
-              - 's3:GetStorageLensDashboard',
-              - 's3:ListStorageLensConfigurations',
+              - 's3:GetStorageLensDashboard'
+              - 's3:ListStorageLensConfigurations'
               - 'secretsmanager:ListSecrets'
               - 'shield:List*'
               - 'snowball:List*'
