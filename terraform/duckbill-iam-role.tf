@@ -137,6 +137,8 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "s3:GetAnalyticsConfiguration",
       "s3:GetBucket*",
       "s3:GetReplication*",
+      "s3:GetStorageLensDashboard",
+      "s3:ListStorageLensConfigurations",
       "secretsmanager:ListSecrets",
       "shield:List*",
       "snowball:List*",
