@@ -110,6 +110,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "es:DescribeReservedElasticsearchInstances",
       "fsx:Describe*",
       "glue:Get*",
+      "glue:List*",
       "health:Describe*",
       "iam:GetPolicyVersion",
       "iam:GetRole",
