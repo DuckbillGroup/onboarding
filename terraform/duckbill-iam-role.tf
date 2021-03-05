@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "DuckbillGroup_AssumeRole_policy_document" {
 
 resource "aws_iam_role" "DuckbillGroupRole" {
   name               = "DuckbillGroupRole"
-  assume_role_policy = "${data.aws_iam_policy_document.DuckbillGroup_AssumeRole_policy_document.json}"
+  assume_role_policy = data.aws_iam_policy_document.DuckbillGroup_AssumeRole_policy_document.json
 }
 
 
@@ -76,7 +76,7 @@ data "aws_iam_policy_document" "DuckbillGroupBilling_policy_document" {
 
 resource "aws_iam_policy" "DuckbillGroupBilling_policy" {
   name   = "DuckbillGroupBilling"
-  policy = "${data.aws_iam_policy_document.DuckbillGroupBilling_policy_document.json}"
+  policy = data.aws_iam_policy_document.DuckbillGroupBilling_policy_document.json
 }
 
 
@@ -110,6 +110,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
       "es:DescribeReservedElasticsearchInstances",
       "fsx:Describe*",
       "glue:Get*",
+      "glue:List*",
       "health:Describe*",
       "iam:GetPolicyVersion",
       "iam:GetRole",
@@ -153,7 +154,7 @@ data "aws_iam_policy_document" "DuckbillGroupResourceDiscovery_policy_document" 
 
 resource "aws_iam_policy" "DuckbillGroupResourceDiscovery_policy" {
   name   = "DuckbillGroupResourceDiscovery"
-  policy = "${data.aws_iam_policy_document.DuckbillGroupResourceDiscovery_policy_document.json}"
+  policy = data.aws_iam_policy_document.DuckbillGroupResourceDiscovery_policy_document.json
 }
 
 
@@ -191,33 +192,33 @@ data "aws_iam_policy_document" "DuckbillGroupCURIngestPipeline_policy_document" 
 
 resource "aws_iam_policy" "DuckbillGroupCURIngestPipeline_policy" {
   name   = "DuckbillGroupCURIngestPipeline"
-  policy = "${data.aws_iam_policy_document.DuckbillGroupCURIngestPipeline_policy_document.json}"
+  policy = data.aws_iam_policy_document.DuckbillGroupCURIngestPipeline_policy_document.json
 }
 
 
 # Attach IAM Policies to DuckbillGroup Role
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-ViewOnlyAccess" {
-  role       = "${aws_iam_role.DuckbillGroupRole.name}"
+  role       = aws_iam_role.DuckbillGroupRole.name
   policy_arn = "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-Billing" {
-  role       = "${aws_iam_role.DuckbillGroupRole.name}"
+  role       = aws_iam_role.DuckbillGroupRole.name
   policy_arn = "arn:aws:iam::aws:policy/job-function/Billing"
 }
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupBilling" {
-  role       = "${aws_iam_role.DuckbillGroupRole.name}"
-  policy_arn = "${aws_iam_policy.DuckbillGroupBilling_policy.arn}"
+  role       = aws_iam_role.DuckbillGroupRole.name
+  policy_arn = aws_iam_policy.DuckbillGroupBilling_policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupResourceDiscovery_policy" {
-  role       = "${aws_iam_role.DuckbillGroupRole.name}"
-  policy_arn = "${aws_iam_policy.DuckbillGroupResourceDiscovery_policy.arn}"
+  role       = aws_iam_role.DuckbillGroupRole.name
+  policy_arn = aws_iam_policy.DuckbillGroupResourceDiscovery_policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupCURIngestPipeline_policy" {
-  role       = "${aws_iam_role.DuckbillGroupRole.name}"
-  policy_arn = "${aws_iam_policy.DuckbillGroupCURIngestPipeline_policy.arn}"
+  role       = aws_iam_role.DuckbillGroupRole.name
+  policy_arn = aws_iam_policy.DuckbillGroupCURIngestPipeline_policy.arn
 }

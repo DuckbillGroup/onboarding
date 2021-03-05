@@ -28,6 +28,7 @@
                 "es:DescribeReservedElasticsearchInstances",
                 "fsx:Describe*",
                 "glue:Get*",
+                "glue:List*",
                 "health:Describe*",
                 "iam:GetPolicyVersion",
                 "iam:GetRole",
