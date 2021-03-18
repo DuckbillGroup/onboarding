@@ -42,6 +42,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
         - arn:aws:iam::aws:policy/job-function/Billing
+        - arn:aws:iam::aws:policy/AWSSavingsPlansReadOnlyAccess
         - !Ref DuckbillGroupBillingPolicy
         - !Ref DuckbillGroupResourceDiscoveryPolicy
         - !Ref DuckbillGroupCURIngestPipelinePolicy

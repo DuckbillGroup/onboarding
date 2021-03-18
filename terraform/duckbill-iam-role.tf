@@ -208,6 +208,11 @@ resource "aws_iam_role_policy_attachment" "duckbill-attach-Billing" {
   policy_arn = "arn:aws:iam::aws:policy/job-function/Billing"
 }
 
+resource "aws_iam_role_policy_attachment" "duckbill-attach-SavingsPlans" {
+  role       = aws_iam_role.DuckbillGroupRole.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSSavingsPlansReadOnlyAccess"
+}
+
 resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupBilling" {
   role       = aws_iam_role.DuckbillGroupRole.name
   policy_arn = aws_iam_policy.DuckbillGroupBilling_policy.arn

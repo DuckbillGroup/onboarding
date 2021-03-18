@@ -67,6 +67,10 @@ aws iam attach-role-policy \
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
+	--policy-arn arn:aws:iam::aws:policy/AWSSavingsPlansReadOnlyAccess
+
+aws iam attach-role-policy \
+	--role-name DuckbillGroupRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupBilling"
 
 aws iam attach-role-policy \
