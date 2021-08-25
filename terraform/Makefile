@@ -1,10 +1,14 @@
+MIN_TERRAFORM_VERSION := 0.12
+
+TERRAFORM_VERSION := $$(terraform -version | grep "^Terraform v" | cut -dv -f2)
+
 cmd-exists-%:
 	@hash $(*) > /dev/null 2>&1 || \
 		(echo "ERROR: '$(*)' must be installed and available on your PATH."; exit 1)
 
 terraform-version: cmd-exists-terraform
-	@if [ $$(terraform -version | grep "^Terraform v" | cut -d. -f2) -lt 12 ]; then \
-		echo "ERROR: Terraform 0.12 or newer is required. Found $$(terraform -version | grep "^Terraform v")" && exit 1; fi
+	@printf '%s\n%s\n' $(MIN_TERRAFORM_VERSION) $(TERRAFORM_VERSION) | sort --check=quiet --version-sort || \
+		(echo "ERROR: Terraform $(MIN_TERRAFORM_VERSION) or newer is required. Found $(TERRAFORM_VERSION)"; exit 1)
 
 init: terraform-version
 	@[ -d .terraform ] || terraform init
