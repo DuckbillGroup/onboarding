@@ -26,7 +26,7 @@ Terraform will prompt you for a couple of required variables:
 
 You'll be prompted to confirm the `apply` action.
 
-Please make sure to communicate your chosen `customer_name_slug` to us after you've successfully created the stack.
+Please make sure to communicate your chosen `customer_name_slug`, `cur_bucket_name`, and `external_id` to us after you've successfully created the stack.
 
 ## Deleting Resources
 

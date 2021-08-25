@@ -22,7 +22,7 @@ This stack includes a couple of required parameters, which you'll need to provid
 
 You can accept all the default options, or you can adjust the stack options per your company policies or preferences.
 
-Please make sure to communicate your chosen `CustomerNameSlug` to us after you've successfully created the stack.
+Please make sure to communicate your chosen `CustomerNameSlug`, `CURBucketName`, and `ExternalID` to us after you've successfully created the stack.
 
 ## Deleting Resources
 
