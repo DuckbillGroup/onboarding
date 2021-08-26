@@ -22,8 +22,6 @@ The script will prompt you for a couple of required parameters:
 
 *External ID:* The External ID used when Duckbill assumes the role. Duckbill will provide you with a unique UUID in the onboarding documents to use for this field.
 
-Please make sure to communicate your chosen *Customer Name Slug*, *CUR S3 Bucket Name*, and *External ID* to us after the script completes successfully.
-
 ## Deleting Resources
 
 After we've completed our engagement, you can delete our IAM role and policy resources from your AWS account:

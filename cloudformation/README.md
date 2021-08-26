@@ -22,8 +22,6 @@ This stack includes a couple of required parameters, which you'll need to provid
 
 You can accept all the default options, or you can adjust the stack options per your company policies or preferences.
 
-Please make sure to communicate your chosen `CustomerNameSlug`, `CURBucketName`, and `ExternalID` to us after you've successfully created the stack.
-
 ## Deleting Resources
 
 After we've completed our engagement, you can delete our IAM role and policy resources from your AWS account by [deleting the CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html).

@@ -20,13 +20,11 @@ Terraform will prompt you for a couple of required variables:
 
 `customer_name_slug`: This is a short, lower-case slug that identifies your company, e.g. `acme-corp`. Duckbill Group will need to know this value, so that we can set up our own infrastructure for you.
 
-`cur_bucket_name`: The name of the S3 bucket in which you are storing Cost and Usage Reports. If you haven't set up Cost and Usage reports in your master payer account yet, talk to us before applying this role.
+`cur_bucket_name`: The name of the S3 bucket in which you are storing Cost and Usage Reports configured in the previous onboarding step. If you haven't set up Cost and Usage reports in your master payer account yet, talk to us before applying this role.
 
 `external_id`: The External ID used when Duckbill assumes the role. Duckbill will provide you with a unique UUID in the onboarding documents to use for this field.
 
 You'll be prompted to confirm the `apply` action.
-
-Please make sure to communicate your chosen `customer_name_slug`, `cur_bucket_name`, and `external_id` to us after you've successfully created the stack.
 
 ## Deleting Resources
 
