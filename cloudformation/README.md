@@ -18,7 +18,7 @@ This stack includes a couple of required parameters, which you'll need to provid
 
 `CURBucketName`: The name of the S3 bucket in which you are storing Cost and Usage Reports. If you haven't set up Cost and Usage reports in your master payer account yet, talk to us before applying this role.
 
-`ExternalID`: The External ID used when Duckbill assumes the role. Duckbill will provide you with a unique UUID in the onboarding documents to use for this field.
+`ExternalID`: The External ID used when Duckbill assumes the role. You can define this as whatever you want, though we generally recommend a UUID.
 
 You can accept all the default options, or you can adjust the stack options per your company policies or preferences.
 
