@@ -20,7 +20,7 @@ The script will prompt you for a couple of required parameters:
 
 *CUR S3 Bucket Name:* The name of the S3 bucket in which you are storing Cost and Usage Reports. If you haven't set up Cost and Usage reports in your master payer account yet, talk to us before applying this role.
 
-*External ID:* The External ID used when Duckbill assumes the role. Duckbill will provide you with a unique UUID in the onboarding documents to use for this field.
+*External ID:* The External ID used when Duckbill assumes the role. You can define this as whatever you want, though we generally recommend a UUID.
 
 ## Deleting Resources
 
