@@ -16,11 +16,11 @@ From this directory, create the IAM role and policies via our role creation scri
 
 The script will prompt you for a couple of required parameters:
 
-*Customer Name Slug:* This is a short, lower-case slug that identifies your company, e.g. `acme-corp`. Duckbill Group will need to know this value, so that we can set up our own infrastructure for you.
+*Customer Name Slug:* This is a short, lower-case slug that identifies your company, e.g. `acme-corp`. Duckbill Group provided this to you in the Client Onboarding Guide.
 
 *CUR S3 Bucket Name:* The name of the S3 bucket in which you are storing Cost and Usage Reports. If you haven't set up Cost and Usage reports in your master payer account yet, talk to us before applying this role.
 
-*External ID:* The External ID used when Duckbill assumes the role. You can define this as whatever you want, though we generally recommend a UUID.
+*External ID:* The External ID used when Duckbill assumes the role. Duckbill Group provided this to you in the Client Onboarding Guide.
 
 ## Deleting Resources
 
