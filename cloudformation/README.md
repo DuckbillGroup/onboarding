@@ -14,13 +14,12 @@ Name your stack whatever you'd like (we recommend `DuckbillGroupRole`).
 
 This stack includes a couple of required parameters, which you'll need to provide in the UI:
 
-`CustomerNameSlug`: This is a short, lower-case slug that identifies your company, e.g. `acme-corp`. Duckbill Group will need to know this value, so that we can set up our own infrastructure for you.
+*Customer Name Slug:* This is a short, lower-case slug that identifies your company, e.g. `acme-corp`. Duckbill Group provided this to you in the Client Onboarding Guide.
 
-`CURBucketName`: The name of the S3 bucket in which you are storing Cost and Usage Reports. If you haven't set up Cost and Usage reports in your master payer account yet, talk to us before applying this role.
+*CUR S3 Bucket Name:* The name of the S3 bucket in which you are storing Cost and Usage Reports. If you haven't set up Cost and Usage reports in your master payer account yet, talk to us before applying this role.
 
-`ExternalID`: The External ID used when Duckbill assumes the role. You can define this as whatever you want, though we generally recommend a UUID.
+*External ID:* The External ID used when Duckbill assumes the role. Duckbill Group provided this to you in the Client Onboarding Guide.
 
-You can accept all the default options, or you can adjust the stack options per your company policies or preferences.
 
 ## Deleting Resources
 
