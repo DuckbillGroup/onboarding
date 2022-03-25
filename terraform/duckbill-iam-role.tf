@@ -5,7 +5,7 @@
 
 variable "customer_name_slug" {
   type        = string
-  description = "A short, lower-case slug that identifies your company, e.g. 'acme-corp'. Duckbill Group will need to know this value, so that we can set up our own infrastructure for you."
+  description = "A short, lower-case slug that identifies your company, e.g. 'acme-corp'. Duckbill Group provided this to you in the Client Onboarding Guide."
 }
 
 variable "cur_bucket_name" {
@@ -15,15 +15,23 @@ variable "cur_bucket_name" {
 
 variable "external_id" {
   type        = string
-  description = "Customer Specific External ID string"
+  description = "The External ID used when Duckbill assumes the role. Duckbill Group provided this to you in the Client Onboarding Guide."
 }
 
 
-# Providers
+# Terraform configuration
+
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+  required_version = ">= 0.13"
+}
 
 provider "aws" {
-  region  = "us-east-1"
-  version = "~> 2.53"
+  region = "us-east-1"
 }
 
 
@@ -41,7 +49,7 @@ data "aws_iam_policy_document" "DuckbillGroup_AssumeRole_policy_document" {
     condition {
       test     = "StringEquals"
       variable = "sts:ExternalId"
-      values   = ["${var.external_id}"]
+      values   = [var.external_id]
     }
   }
 }

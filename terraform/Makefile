@@ -1,4 +1,4 @@
-MIN_TERRAFORM_VERSION := 0.12
+MIN_TERRAFORM_VERSION := 0.13
 
 TERRAFORM_VERSION := $$(terraform -version | grep "^Terraform v" | cut -dv -f2)
 
@@ -11,7 +11,7 @@ terraform-version: cmd-exists-terraform
 		(echo "ERROR: Terraform $(MIN_TERRAFORM_VERSION) or newer is required. Found $(TERRAFORM_VERSION)"; exit 1)
 
 init: terraform-version
-	@[ -d .terraform ] || terraform init
+	@terraform init
 
 plan: init
 	@terraform plan -out terraform.tfplan
