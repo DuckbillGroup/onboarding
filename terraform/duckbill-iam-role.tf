@@ -18,6 +18,9 @@ variable "external_id" {
   description = "The External ID used when Duckbill assumes the role. Duckbill Group provided this to you in the Client Onboarding Guide."
 }
 
+locals {
+  internal_customer_id = split("-", var.external_id)[0]
+}
 
 # Terraform configuration
 
@@ -194,7 +197,9 @@ data "aws_iam_policy_document" "DuckbillGroupCURIngestPipeline_policy_document" 
 
     resources = [
       "arn:aws:s3:::dbg-cur-ingest-${var.customer_name_slug}",
-      "arn:aws:s3:::dbg-cur-ingest-${var.customer_name_slug}/*"
+      "arn:aws:s3:::dbg-cur-ingest-${var.customer_name_slug}/*",
+      "arn:aws:s3:::dbg-cur-ingest-${local.internal_customer_id}",
+      "arn:aws:s3:::dbg-cur-ingest-${local.internal_customer_id}/*"
     ]
   }
 }
