@@ -162,7 +162,7 @@ Resources:
               - !Sub 'arn:aws:s3:::dbg-cur-ingest-${CustomerNameSlug}/*'
               - !Sub
                 - 'arn:aws:s3:::dbg-cur-ingest-${external_id_prefix}'
-                - external_id_prefix: !Select [0, !Split ['-', '${ExternalID}']]
+                - external_id_prefix: !Select [0, !Split ['-', !Sub '${ExternalID}']]
               - !Sub
                 - 'arn:aws:s3:::dbg-cur-ingest-${external_id_prefix}/*'
-                - external_id_prefix: !Select [0, !Split ['-', '${ExternalID}']]
+                - external_id_prefix: !Select [0, !Split ['-', !Sub '${ExternalID}']]
