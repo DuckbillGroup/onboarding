@@ -32,7 +32,9 @@ Please enter the External ID provided to you by Duckbill Cloud Economists
 EOM
 read -rp 'External ID: ' external_id
 
-sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+internal_customer_id=$(echo "${external_id}" | awk -F '-' '{print $1}' | tr -d '\r\n')
+
+sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
 	"${this_dir}/cur-ingest-pipeline-policy.json.template" > "${this_dir}/cur-ingest-pipeline-policy.json"
 
 sed "s/EXTERNAL_ID/${external_id}/g" \
