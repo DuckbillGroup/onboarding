@@ -58,9 +58,9 @@ data "aws_iam_policy_document" "DuckbillGroup_AssumeRole_policy_document" {
 }
 
 resource "aws_iam_role" "DuckbillGroupRole" {
-  name               = "DuckbillGroupRole"
+  name                 = "DuckbillGroupRole"
   max_session_duration = 14400
-  assume_role_policy = data.aws_iam_policy_document.DuckbillGroup_AssumeRole_policy_document.json
+  assume_role_policy   = data.aws_iam_policy_document.DuckbillGroup_AssumeRole_policy_document.json
 }
 
 
