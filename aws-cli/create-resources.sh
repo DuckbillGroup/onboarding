@@ -45,6 +45,7 @@ echo "Adding Duckbill Group role and policies..."
 
 aws iam create-role \
 	--role-name DuckbillGroupRole \
+	--max-session-duration 14400 \
 	--assume-role-policy-document "file://${this_dir}/assume-role-trust-policy.json"
 
 aws iam create-policy \
