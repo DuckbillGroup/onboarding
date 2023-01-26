@@ -41,6 +41,6 @@ Log into the AWS console,
 
 ## Developer Information
 
-We lint our shell scripts with `shellcheck` and JSON with `python -m json.tool`, which runs in CI on every PR. If you have `shellcheck` and `python` installed locally, you can run the linter:
+We lint our shell scripts with `shellcheck`, which runs in CI on every PR. If you have `shellcheck` installed locally, you can run the linter:
 
     $ make lint
