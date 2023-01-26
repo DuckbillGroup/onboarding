@@ -6,7 +6,7 @@ Our IAM role should ideally be set up in every AWS account you have. If that’s
 
 ## Prerequisites
 
-You'll need [Terraform](https://www.terraform.io/) (version `0.13` or newer) installed locally. We use the Terraform AWS provider, which must be configured to authenticate to your target AWS account via [environment variables](https://www.terraform.io/docs/providers/aws/index.html#environment-variables) or a [shared credentials file](https://www.terraform.io/docs/providers/aws/index.html#shared-credentials-file). Your AWS user will need to have privileges to create IAM roles and policies in your target account.
+You'll need [Terraform](https://www.terraform.io/) (version `0.12` or newer) installed locally. We use the Terraform AWS provider, which must be configured to authenticate to your target AWS account via [environment variables](https://www.terraform.io/docs/providers/aws/index.html#environment-variables) or a [shared credentials file](https://www.terraform.io/docs/providers/aws/index.html#shared-credentials-file). Your AWS user will need to have privileges to create IAM roles and policies in your target account.
 
 ## Creating Resources
 

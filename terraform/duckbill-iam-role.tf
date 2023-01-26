@@ -70,30 +70,15 @@ data "aws_iam_policy_document" "DuckbillGroupBilling_policy_document" {
     effect = "Allow"
 
     actions = [
-      "account:GetAccountInformation",
+      "ce:*",
+      "cur:DescribeReportDefinitions",
       "aws-portal:ViewBilling",
       "aws-portal:ViewUsage",
-      "billing:Get*",
-      "billing:List*",
       "budgets:ViewBudget",
-      "ce:*",
       "compute-optimizer:Get*",
-      "consolidatedbilling:Get*",
-      "consolidatedbilling:List*",
-      "cur:Describe*",
-      "cur:Get*",
-      "cur:Validate*",
-      "freetier:Get*",
       "glue:BatchGetJobs",
       "glue:ListJobs",
-      "invoicing:Get*",
-      "invoicing:List*",
-      "payments:List*",
-      "payments:Get*",
-      "pricing:DescribeServices",
-      "pricing:GetProducts",
-      "tax:List*",
-      "tax:Get*"
+      "pricing:GetProducts"
     ]
 
     resources = ["*"]
