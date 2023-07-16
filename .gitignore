@@ -9,3 +9,4 @@ terraform.tfplan
 # This file is templated
 **/cur-ingest-pipeline-policy.json
 **/assume-role-trust-policy.json
+**/deny-sensitive-data-policy.json
