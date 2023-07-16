@@ -1,6 +1,10 @@
 **/.terraform
 *.tfstate
 *.tfstate.*
+.terraform.lock.hcl
+terraform.tfplan
+
+.DS_Store
 
 # This file is templated
 **/cur-ingest-pipeline-policy.json
