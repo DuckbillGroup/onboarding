@@ -210,6 +210,178 @@ resource "aws_iam_policy" "DuckbillGroupCURIngestPipeline_policy" {
 }
 
 
+# DuckbillGroupDenySensitiveAccess - Prevent Access to Customer Data
+
+data "aws_iam_policy_document" "DuckbillGroupDenySensitiveAccess_policy_document" {
+  statement {
+    effect = "Deny"
+
+    actions = [
+      "appsync:GetDataSource",
+      "appsync:GetFunction",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:GetQueryResultsStream",
+      "cassandra:Select",
+      "chatbot:DescribeSlackChannels",
+      "chatbot:DescribeSlackUserIdentities",
+      "chatbot:ListMicrosoftTeamsConfiguredTeams",
+      "chatbot:ListMicrosoftTeamsUserIdentities",
+      "chime:GetAttendee",
+      "chime:GetChannelMessage",
+      "chime:GetMeeting",
+      "chime:GetMeetingDetail",
+      "chime:GetRoom",
+      "chime:GetUser",
+      "chime:GetUserActivityReportData",
+      "chime:GetUserByEmail",
+      "chime:GetUserSettings",
+      "chime:ListAttendees",
+      "chime:ListMeetingEvents",
+      "chime:ListMeetings",
+      "chime:ListUsers",
+      "cleanrooms:GetProtectedQuery",
+      "cloudformation:GetTemplate",
+      "cloudfront:GetFunction",
+      "cloudtrail:GetQueryResults",
+      "cloudtrail:LookupEvents",
+      "codeartifact:GetPackageVersionAsset",
+      "codeartifact:GetPackageVersionReadme",
+      "codeartifact:ReadFromRepository",
+      "codebuild:BatchGetReportGroups",
+      "codebuild:BatchGetReports",
+      "codecommit:BatchGetCommits",
+      "codecommit:BatchGetPullRequests",
+      "codecommit:BatchGetRepositories",
+      "codecommit:DescribeMergeConflicts",
+      "codecommit:DescribePullRequestEvents",
+      "codecommit:GetApprovalRuleTemplate",
+      "codecommit:GetBlob",
+      "codecommit:GetBranch",
+      "codecommit:GetComment",
+      "codecommit:GetCommentReactions",
+      "codecommit:GetCommentsForComparedCommit",
+      "codecommit:GetCommentsForPullRequest",
+      "codecommit:GetCommit",
+      "codecommit:GetCommitHistory",
+      "codecommit:GetCommitsFromMergeBase",
+      "codecommit:GetDifferences",
+      "codecommit:GetFile",
+      "codecommit:GetFolder",
+      "codecommit:GetMergeCommit",
+      "codecommit:GetMergeConflicts",
+      "codecommit:GetMergeOptions",
+      "codecommit:GetObjectIdentifier",
+      "codecommit:GetPullRequest",
+      "codecommit:GetPullRequestApprovalStates",
+      "codecommit:GetPullRequestOverrideState",
+      "codecommit:GetReferences",
+      "codecommit:GetTree",
+      "codecommit:GitPull",
+      "codeguru-profiler:GetRecommendations",
+      "codeguru-reviewer:DescribeCodeReview",
+      "codeguru-reviewer:DescribeRecommendationFeedback",
+      "codepipeline:GetPipelineExecution",
+      "cognito-identity:LookupDeveloperIdentity",
+      "cognito-idp:AdminGetDevice",
+      "cognito-idp:AdminGetUser",
+      "cognito-idp:AdminListDevices",
+      "cognito-idp:AdminListGroupsForUser",
+      "cognito-idp:AdminListUserAuthEvents",
+      "cognito-idp:GetDevice",
+      "cognito-idp:GetGroup",
+      "cognito-idp:GetUser",
+      "cognito-idp:ListUsers",
+      "cognito-idp:ListDevices",
+      "cognito-idp:ListGroups",
+      "cognito-sync:ListRecords",
+      "cognito-sync:QueryRecords",
+      "connect:ListUsers",
+      "datapipeline:QueryObjects",
+      "dax:BatchGetItem",
+      "dax:GetItem",
+      "dax:Query",
+      "dax:Scan",
+      "dynamodb:BatchGetItem",
+      "dynamodb:GetItem",
+      "dynamodb:GetRecords",
+      "dynamodb:Query",
+      "dynamodb:Scan",
+      "ecr:GetDownloadUrlForLayer",
+      "es:ESHttpDelete",
+      "es:ESHttpGet",
+      "es:ESHttpHead",
+      "es:ESHttpPatch",
+      "es:ESHttpPost",
+      "es:ESHttpPut",
+      "gamelift:GetInstanceAccess",
+      "healthlake:ReadResource",
+      "healthlake:SearchWithGet",
+      "healthlake:SearchWithPost",
+      "kendra:Query",
+      "kinesis:GetRecords",
+      "kinesisvideo:GetImages",
+      "kinesisvideo:GetMedia",
+      "lambda:GetFunction",
+      "lambda:GetLayerVersion",
+      "lightsail:GetContainerImages",
+      "logs:GetLogEvents",
+      "logs:GetLogRecord",
+      "logs:GetQueryResults",
+      "macie2:GetFindings",
+      "mediastore:GetObject",
+      "qldb:GetBlock",
+      "rds:DownloadCompleteDBLogFile",
+      "rds:DownloadDBLogFilePortion",
+      "robomaker:GetWorldTemplateBody",
+      "s3-object-lambda:GetObject",
+      "s3-object-lambda:GetObjectVersion",
+      "s3-object-lambda:ListBucket",
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "sagemaker:Search",
+      "sdb:Select",
+      "serverlessrepo:GetApplication",
+      "serverlessrepo:GetCloudFormationTemplate",
+      "sqs:ReceiveMessage",
+      "ssm:GetDocument",
+      "ssm:GetParameter",
+      "ssm:GetParameterHistory",
+      "ssm:GetParameters",
+      "ssm:GetParametersByPath",
+      "sso-directory:DescribeGroup",
+      "sso-directory:DescribeUser",
+      "sso-directory:SearchGroups",
+      "sso-directory:SearchUsers",
+      "sso:SearchGroups",
+      "sso:SearchUsers",
+      "support:DescribeAttachment",
+      "support:DescribeCommunications",
+      "workdocs:GetDocument",
+      "workdocs:GetDocumentPath",
+      "workdocs:GetDocumentVersion",
+      "workmail:ListGroupMembers",
+      "workmail:ListGroups",
+      "workmail:ListUsers"
+    ]
+
+    not_resources = [
+      "arn:aws:s3:::${var.cur_bucket_name}",
+      "arn:aws:s3:::${var.cur_bucket_name}/*",
+      "arn:aws:s3:::dbg-cur-ingest-${var.customer_name_slug}",
+      "arn:aws:s3:::dbg-cur-ingest-${var.customer_name_slug}/*",
+      "arn:aws:s3:::dbg-cur-ingest-${local.internal_customer_id}",
+      "arn:aws:s3:::dbg-cur-ingest-${local.internal_customer_id}/*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "DuckbillGroupDenySensitiveAccess_policy" {
+  name   = "DuckbillGroupDenySensitiveAccess"
+  policy = data.aws_iam_policy_document.DuckbillGroupDenySensitiveAccess_policy_document.json
+}
+
+
 # Attach IAM Policies to DuckbillGroup Role
 
 resource "aws_iam_role_policy_attachment" "duckbill-attach-ViewOnlyAccess" {
@@ -240,4 +412,9 @@ resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupResource
 resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupCURIngestPipeline_policy" {
   role       = aws_iam_role.DuckbillGroupRole.name
   policy_arn = aws_iam_policy.DuckbillGroupCURIngestPipeline_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "duckbill-attach-DuckbillGroupDenySensitiveAccess_policy" {
+  role       = aws_iam_role.DuckbillGroupRole.name
+  policy_arn = aws_iam_policy.DuckbillGroupDenySensitiveAccess_policy.arn
 }

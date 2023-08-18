@@ -37,6 +37,9 @@ internal_customer_id=$(echo "${external_id}" | awk -F '-' '{print $1}' | tr -d '
 sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
 	"${this_dir}/cur-ingest-pipeline-policy.json.template" > "${this_dir}/cur-ingest-pipeline-policy.json"
 
+sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
+	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
+
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/assume-role-trust-policy.json.template" > "${this_dir}/assume-role-trust-policy.json"
 
@@ -58,6 +61,10 @@ aws iam create-policy \
 aws iam create-policy \
 	--policy-name DuckbillGroupCURIngestPipeline \
 	--policy-document "file://${this_dir}/cur-ingest-pipeline-policy.json"
+
+aws iam create-policy \
+	--policy-name DuckbillGroupDenySensitiveAccess \
+	--policy-document "file://${this_dir}/deny-sensitive-data-policy.json"
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
@@ -82,5 +89,9 @@ aws iam attach-role-policy \
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupCURIngestPipeline"
+
+aws iam attach-role-policy \
+	--role-name DuckbillGroupRole \
+	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupDenySensitiveAccess"
 
 echo "Done!"
