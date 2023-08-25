@@ -56,15 +56,30 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Action:
-              - 'ce:*'
-              - 'cur:DescribeReportDefinitions'
+              - 'account:GetAccountInformation'
               - 'aws-portal:ViewBilling'
               - 'aws-portal:ViewUsage'
+              - 'billing:Get*'
+              - 'billing:List*'
               - 'budgets:ViewBudget'
+              - 'ce:*'
               - 'compute-optimizer:Get*'
+              - 'consolidatedbilling:Get*'
+              - 'consolidatedbilling:List*'
+              - 'cur:Describe*'
+              - 'cur:Get*'
+              - 'cur:Validate*'
+              - 'freetier:Get*'
               - 'glue:BatchGetJobs'
               - 'glue:ListJobs'
+              - 'invoicing:Get*'
+              - 'invoicing:List*'
+              - 'payments:List*'
+              - 'payments:Get*'
+              - 'pricing:DescribeServices'
               - 'pricing:GetProducts'
+              - 'tax:List*'
+              - 'tax:Get*'
             Effect: Allow
             Resource: '*'
 
