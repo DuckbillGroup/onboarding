@@ -20,13 +20,6 @@ read -rp 'Customer name slug: ' customer_name_slug
 
 cat <<EOM
 
-Please enter the name of the S3 bucket in which you are storing Cost and Usage Reports.
-
-EOM
-read -rp 'CUR S3 Bucket Name: ' cur_bucket_name
-
-cat <<EOM
-
 Please enter the External ID provided to you by Duckbill Cloud Economists
 
 EOM
@@ -34,10 +27,7 @@ read -rp 'External ID: ' external_id
 
 internal_customer_id=$(echo "${external_id}" | awk -F '-' '{print $1}' | tr -d '\r\n')
 
-sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
-	"${this_dir}/cur-ingest-pipeline-policy.json.template" > "${this_dir}/cur-ingest-pipeline-policy.json"
-
-sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/CUR_BUCKET_NAME/${cur_bucket_name}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
+sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
 
 sed "s/EXTERNAL_ID/${external_id}/g" \
@@ -57,10 +47,6 @@ aws iam create-policy \
 aws iam create-policy \
 	--policy-name DuckbillGroupResourceDiscovery \
 	--policy-document "file://${this_dir}/resource-discovery-policy.json"
-
-aws iam create-policy \
-	--policy-name DuckbillGroupCURIngestPipeline \
-	--policy-document "file://${this_dir}/cur-ingest-pipeline-policy.json"
 
 aws iam create-policy \
 	--policy-name DuckbillGroupDenySensitiveAccess \
@@ -85,10 +71,6 @@ aws iam attach-role-policy \
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupResourceDiscovery"
-
-aws iam attach-role-policy \
-	--role-name DuckbillGroupRole \
-	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupCURIngestPipeline"
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
