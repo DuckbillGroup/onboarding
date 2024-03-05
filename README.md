@@ -4,6 +4,8 @@ This repo contains tooling to create AWS IAM roles and policies that Duckbill Gr
 
 Our IAM role should ideally be set up in every AWS account you have. If that’s not feasible, then please apply it to your master payer account and your largest (by spend) accounts.
 
+More details about how we access client accounts, and the details of our internal operations with such, can be found in [our writeup about overhauling AWS access in 2023](https://www.duckbillgroup.com/blog/overhauling-aws-account-access-with-terraform-granted-and-gitops/).
+
 ## Prerequisites
 
 You'll need the [AWS CLI](https://aws.amazon.com/cli/) installed and [configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) for your target AWS account. Your AWS user will need to have privileges to create IAM roles and policies in your target account.
@@ -41,6 +43,9 @@ Log into the AWS console,
 * Creates a role titled `DuckbillGroupRole`
 * Creates custom policies: `DuckbillGroupBilling`, `DuckbillGroupResourceDiscovery`, `DuckbillGroupDenySensitiveAccess`
 * Attaches the custom policies to the role along with AWS-managed policies, `ViewOnlyAccess`, `Billing`, and `AWSSavingsPlansReadOnlyAccess`
+
+
+![Access diagram](access-diagram.png)
 
 ### Policy: DuckbillGroupBilling
 
