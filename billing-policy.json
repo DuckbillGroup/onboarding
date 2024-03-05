@@ -19,8 +19,6 @@
                 "cur:Get*",
                 "cur:Validate*",
                 "freetier:Get*",
-                "glue:BatchGetJobs",
-                "glue:ListJobs",
                 "invoicing:Get*",
                 "invoicing:List*",
                 "payments:List*",

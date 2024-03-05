@@ -151,14 +151,6 @@
                 "workmail:ListGroupMembers",
                 "workmail:ListGroups",
                 "workmail:ListUsers"
-            ],
-            "NotResource": [
-                "arn:aws:s3:::CUR_BUCKET_NAME/*",
-                "arn:aws:s3:::CUR_BUCKET_NAME",
-                "arn:aws:s3:::dbg-cur-ingest-CUSTOMER_NAME_SLUG/*",
-                "arn:aws:s3:::dbg-cur-ingest-CUSTOMER_NAME_SLUG",
-                "arn:aws:s3:::dbg-cur-ingest-INTERNAL_CUSTOMER_ID/*",
-                "arn:aws:s3:::dbg-cur-ingest-INTERNAL_CUSTOMER_ID"
             ]
         }
     ]
