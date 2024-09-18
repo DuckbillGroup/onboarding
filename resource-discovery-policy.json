@@ -6,6 +6,7 @@
             "Effect": "Allow",
             "Action": [
                 "acm:Describe*",
+                "application-autoscaling:Describe*",
                 "apigateway:GET",
                 "batch:Describe*",
                 "cloudhsm:Describe*",
@@ -60,6 +61,8 @@
                 "s3:GetStorageLensConfiguration",
                 "s3:ListStorageLensConfigurations",
                 "secretsmanager:ListSecrets",
+                "servicequotas:List*",                
+                "servicequotas:Get*",
                 "shield:List*",
                 "snowball:List*",
                 "sns:GetTopicAttributes",
