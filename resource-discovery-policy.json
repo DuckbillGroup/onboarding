@@ -57,6 +57,7 @@
                 "medialive:List*",
                 "mq:List*",
                 "redshift:Describe*",
+                "rds:ListTags*",
                 "s3:GetAnalyticsConfiguration",
                 "s3:GetBucket*",
                 "s3:GetReplication*",
