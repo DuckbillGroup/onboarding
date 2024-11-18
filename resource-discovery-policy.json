@@ -69,7 +69,9 @@
                 "snowball:List*",
                 "sns:GetTopicAttributes",
                 "ssm:Describe*",
-                "tag:Get*"
+                "tag:Get*",
+                "vpc-lattice:List*",
+                "vpc-lattice:Get*"
             ],
             "Resource": "*"
         }
