@@ -10,7 +10,7 @@
                 "apigateway:GET",
                 "appsync:List*",
                 "appsync:Get*",
-                "appsync:List*",
+                "backup:GetBackup*",
                 "batch:Describe*",
                 "cloudhsm:Describe*",
                 "cloudhsm:List*",
