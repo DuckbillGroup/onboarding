@@ -31,14 +31,21 @@ sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/INTERNAL_CUSTOMER_ID/${inter
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
 
 sed "s/EXTERNAL_ID/${external_id}/g" \
-	"${this_dir}/assume-role-trust-policy.json.template" > "${this_dir}/assume-role-trust-policy.json"
+	"${this_dir}/dbg-assume-role-trust-policy.json.template" > "${this_dir}/dbg-assume-role-trust-policy.json"
+
+sed "s/EXTERNAL_ID/${external_id}/g" \
+	"${this_dir}/skyway-assume-role-trust-policy.json.template" > "${this_dir}/skyway-assume-role-trust-policy.json"
 
 echo "Logged into AWS as ${user_arn}"
-echo "Adding Duckbill Group role and policies..."
+echo "Adding role and policies..."
 
+echo "Setting up Duckbill Group access"
+# Duckbill Group access
+# More expansive as we need access to more stuff for cost optimization work
+# At a minimum, deploy to payer. Ideally, all accounts.
 aws iam create-role \
 	--role-name DuckbillGroupRole \
-	--assume-role-policy-document "file://${this_dir}/assume-role-trust-policy.json"
+	--assume-role-policy-document "file://${this_dir}/dbg-assume-role-trust-policy.json"
 
 aws iam create-policy \
 	--policy-name DuckbillGroupBilling \
@@ -48,6 +55,7 @@ aws iam create-policy \
 	--policy-name DuckbillGroupResourceDiscovery \
 	--policy-document "file://${this_dir}/resource-discovery-policy.json"
 
+# Denies access to all but the CUR bucket. Only relevant because the ResourceDiscoveryPolicy grants S3 access
 aws iam create-policy \
 	--policy-name DuckbillGroupDenySensitiveAccess \
 	--policy-document "file://${this_dir}/deny-sensitive-data-policy.json"
@@ -55,14 +63,6 @@ aws iam create-policy \
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
 	--policy-arn arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
-
-aws iam attach-role-policy \
-	--role-name DuckbillGroupRole \
-	--policy-arn arn:aws:iam::aws:policy/job-function/Billing
-
-aws iam attach-role-policy \
-	--role-name DuckbillGroupRole \
-	--policy-arn arn:aws:iam::aws:policy/AWSSavingsPlansReadOnlyAccess
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
@@ -75,5 +75,20 @@ aws iam attach-role-policy \
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupDenySensitiveAccess"
+
+echo "Setting up Skyway access"
+# Skyway access
+# Only needed on payer account
+aws iam create-role \
+	--role-name SkywayRole \
+	--assume-role-policy-document "file://${this_dir}/skyway-assume-role-trust-policy.json"
+
+aws iam create-policy \
+	--policy-name SkywayAccess \
+	--policy-document "file://${this_dir}/billing-policy.json"
+
+aws iam attach-role-policy \
+	--role-name SkywayRole \
+	--policy-arn "arn:aws:iam::${account_number}:policy/SkywayAccess"
 
 echo "Done!"

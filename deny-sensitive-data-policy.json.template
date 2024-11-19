@@ -155,6 +155,7 @@
             "NotResource": [
                 "arn:aws:s3:::CUR-BUCKET-NAME/*",
                 "arn:aws:s3:::CUR-BUCKET-NAME"
+            ]
         }
     ]
 }
