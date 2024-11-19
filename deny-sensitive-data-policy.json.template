@@ -153,8 +153,8 @@
                 "workmail:ListUsers"
             ],
             "NotResource": [
-                "arn:aws:s3:::CUR-BUCKET-NAME/*",
-                "arn:aws:s3:::CUR-BUCKET-NAME"
+                "arn:aws:s3:::CUR_BUCKET_NAME/*",
+                "arn:aws:s3:::CUR_BUCKET_NAME"
             ]
         }
     ]

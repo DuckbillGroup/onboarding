@@ -25,10 +25,26 @@ Please enter the External ID provided to you by Duckbill Cloud Economists
 EOM
 read -rp 'External ID: ' external_id
 
+cat <<EOM
+
+Please enter the name of the S3 bucket where your Cost & Usage Report resides.
+
+EOM
+read -rp 'S3 Bucket Name: ' cur_bucket_name
+
 internal_customer_id=$(echo "${external_id}" | awk -F '-' '{print $1}' | tr -d '\r\n')
 
 sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
+
+sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
+
+sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+	"${this_dir}/data-export.json" > "${this_dir}/data-export.json"
+
+sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+	"${this_dir}/billing-policy.json" > "${this_dir}/billing-policy.json"
 
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/dbg-assume-role-trust-policy.json.template" > "${this_dir}/dbg-assume-role-trust-policy.json"
@@ -90,5 +106,11 @@ aws iam create-policy \
 aws iam attach-role-policy \
 	--role-name SkywayRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/SkywayAccess"
+
+
+# Create CUR config
+data_export_file="file://${this_dir}/data-export.json"
+data_export_content=$(cat "$data_export_file")
+aws bcm-data-exports create-export --export "'$data_export_content'"
 
 echo "Done!"

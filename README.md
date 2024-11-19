@@ -28,6 +28,8 @@ After we've completed our engagement, you can delete our IAM role and policy res
 
     $ make delete
 
+Note that this won't automatically delete the Data Export we're creating, since you may end up using it yourself.
+
 If you prefer or need to use the AWS console, you can delete the resources manually.
 
 ### Deleting Resources Manually
@@ -36,6 +38,7 @@ Log into the AWS console,
 
  - navigate to `IAM > Policies` and delete: `DuckbillGroupBilling`, `SkywayAccess`, `DuckbillGroupResourceDiscovery`, `DuckbillGroupDenySensitiveAccess`
  - navigate to `IAM > Roles` and delete `DuckbillGroupRole` and `SkywayRole`
+ - navigate to `Data Exports` and delete the export `skyway-export`
 
 ## What this code does
 
@@ -43,7 +46,7 @@ Log into the AWS console,
 * Creates custom policies: `DuckbillGroupBilling`, `DuckbillGroupResourceDiscovery`, `DuckbillGroupDenySensitiveAccess`, `SkywayAccess`
 * Attaches the policies prefixed with `DuckbillGroup` to the `DuckbillGroupRole` role, along with the AWS-managed policy `ViewOnlyAccess`
 * Attaches the policy `SkywayAccess` to the `SkywayRole` role
-
+* Creates a Data Export in the payer account called `skyway-export`
 
 ![Access diagram](access-diagram.png)
 
