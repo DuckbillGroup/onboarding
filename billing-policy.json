@@ -67,7 +67,7 @@
                 "ec2:DescribeReservedInstance*",
                 "rds:DescribeReservedDBInstance*",
                 "elasticache:DescribeReservedCacheNode*",
-                "opensearch:DescribeReservedInstance*",
+                "es:DescribeReservedInstance*",
                 "redshift:DescribeReservedNodes*",
                 "compute-optimizer:Export*",
                 "compute-optimizer:Get*",
