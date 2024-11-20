@@ -2,7 +2,7 @@
 
 This repo contains tooling to create AWS IAM roles and policies that Duckbill Group will use to access your AWS accounts. We use [role assumption](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) rather than dedicated IAM users, and the scripts and templates here will enable you to create those resources in your AWS account.
 
-Our IAM role should ideally be set up in every AWS account you have. If that’s not feasible, then please apply it to your master payer account and your largest (by spend) accounts.
+Our IAM role should ideally be set up in every AWS account you have. If that’s not feasible, then please apply it to your master payer account and your largest (by spend) accounts. (Exception: the `SkywayRole` role only needs to be set up in your payer account.)
 
 More details about how we access client accounts, and the details of our internal operations with such, can be found in [our writeup about overhauling AWS access in 2023](https://www.duckbillgroup.com/blog/overhauling-aws-account-access-with-terraform-granted-and-gitops/).
 
@@ -28,26 +28,29 @@ After we've completed our engagement, you can delete our IAM role and policy res
 
     $ make delete
 
+Note that this won't automatically delete the Data Export we're creating, since you may end up using it yourself.
+
 If you prefer or need to use the AWS console, you can delete the resources manually.
 
 ### Deleting Resources Manually
 
 Log into the AWS console,
 
- - navigate to `IAM > Policies` and delete the `DuckbillGroupBilling` policy
- - navigate to `IAM > Policies` and delete the `DuckbillGroupResourceDiscovery` policy
- - navigate to `IAM > Roles` and delete the `DuckbillGroupRole` role
+ - navigate to `IAM > Policies` and delete: `DuckbillGroupBilling`, `SkywayAccess`, `DuckbillGroupResourceDiscovery`, `DuckbillGroupDenySensitiveAccess`
+ - navigate to `IAM > Roles` and delete `DuckbillGroupRole` and `SkywayRole`
+ - navigate to `Data Exports` and delete the export `skyway-export`
 
 ## What this code does
 
-* Creates a role titled `DuckbillGroupRole`
-* Creates custom policies: `DuckbillGroupBilling`, `DuckbillGroupResourceDiscovery`, `DuckbillGroupDenySensitiveAccess`
-* Attaches the custom policies to the role along with AWS-managed policies, `ViewOnlyAccess`, `Billing`, and `AWSSavingsPlansReadOnlyAccess`
-
+* Creates two roles titled `DuckbillGroupRole` and `SkywayRole`
+* Creates custom policies: `DuckbillGroupBilling`, `DuckbillGroupResourceDiscovery`, `DuckbillGroupDenySensitiveAccess`, `SkywayAccess`
+* Attaches the policies prefixed with `DuckbillGroup` to the `DuckbillGroupRole` role, along with the AWS-managed policy `ViewOnlyAccess`
+* Attaches the policy `SkywayAccess` to the `SkywayRole` role
+* Creates a Data Export in the payer account called `skyway-export`
 
 ![Access diagram](access-diagram.png)
 
-### Policy: DuckbillGroupBilling
+### Policy: DuckbillGroupBilling and SkywayAccess
 
 This policies defines access related to AWS billing actions. Everything is read-only.
 

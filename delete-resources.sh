@@ -15,14 +15,6 @@ aws iam detach-role-policy \
 
 aws iam detach-role-policy \
 	--role-name DuckbillGroupRole \
-	--policy-arn arn:aws:iam::aws:policy/job-function/Billing
-
-aws iam detach-role-policy \
-	--role-name DuckbillGroupRole \
-	--policy-arn arn:aws:iam::aws:policy/AWSSavingsPlansReadOnlyAccess
-
-aws iam detach-role-policy \
-	--role-name DuckbillGroupRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupBilling"
 
 aws iam detach-role-policy \
@@ -37,5 +29,18 @@ aws iam delete-policy \
 
 aws iam delete-role \
 	--role-name DuckbillGroupRole
+
+
+echo "Deleting Skyway role and policies..."
+
+aws iam detach-role-policy \
+	--role-name SkywayRole \
+	--policy-arn "arn:aws:iam::${account_number}:policy/SkywayAccess"
+
+aws iam delete-policy \
+	--policy-arn "arn:aws:iam::${account_number}:policy/SkywayAccess"
+
+aws iam delete-role \
+	--role-name SkywayRole
 
 echo "Done!"

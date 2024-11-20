@@ -9,8 +9,8 @@
                 "s3:GetObject"
             ],
             "Resource": [
-                "arn:aws:s3:::CUR-BUCKET-NAME/*",
-                "arn:aws:s3:::CUR-BUCKET-NAME"
+                "arn:aws:s3:::CUR_BUCKET_NAME/*",
+                "arn:aws:s3:::CUR_BUCKET_NAME"
             ]
         },
         {
@@ -48,17 +48,13 @@
                 "cur:Get*",
                 "cur:ValidateReportDestination",
                 "cur:Put*",
-                "ce:Get*",
-                "ce:Describe*",
-                "ce:List*",
-                "ce:UpdatePreferences",
-                "ce:StartSavingsPlansPurchaseRecommendationGeneration",
+                "ce:*",
                 "invoicing:Get*",
                 "invoicing:List*",
                 "freetier:Get*",
                 "mapcredits:List*",
-                "payments:ListPaymentPreferences",
-                "payments:GetPaymentStatus",
+                "payments:List*",
+                "payments:Get*",
                 "payments:GetPaymentInstrument",
                 "purchase-orders:Get*",
                 "purchase-orders:List*",

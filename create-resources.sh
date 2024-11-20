@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2094
+
 # Creates all AWS IAM resources required for Duckbill Group remote access.
 
 set -euo pipefail
@@ -25,20 +27,43 @@ Please enter the External ID provided to you by Duckbill Cloud Economists
 EOM
 read -rp 'External ID: ' external_id
 
+cat <<EOM
+
+Please enter the name of the S3 bucket where your Cost & Usage Report resides.
+
+EOM
+read -rp 'S3 Bucket Name: ' cur_bucket_name
+
 internal_customer_id=$(echo "${external_id}" | awk -F '-' '{print $1}' | tr -d '\r\n')
 
 sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
 
+sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
+
+sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+	"${this_dir}/data-export.json" > "${this_dir}/data-export.json"
+
+sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+	"${this_dir}/billing-policy.json" > "${this_dir}/billing-policy.json"
+
 sed "s/EXTERNAL_ID/${external_id}/g" \
-	"${this_dir}/assume-role-trust-policy.json.template" > "${this_dir}/assume-role-trust-policy.json"
+	"${this_dir}/dbg-assume-role-trust-policy.json.template" > "${this_dir}/dbg-assume-role-trust-policy.json"
+
+sed "s/EXTERNAL_ID/${external_id}/g" \
+	"${this_dir}/skyway-assume-role-trust-policy.json.template" > "${this_dir}/skyway-assume-role-trust-policy.json"
 
 echo "Logged into AWS as ${user_arn}"
-echo "Adding Duckbill Group role and policies..."
+echo "Adding role and policies..."
 
+echo "Setting up Duckbill Group access"
+# Duckbill Group access
+# More expansive as we need access to more stuff for cost optimization work
+# At a minimum, deploy to payer. Ideally, all accounts.
 aws iam create-role \
 	--role-name DuckbillGroupRole \
-	--assume-role-policy-document "file://${this_dir}/assume-role-trust-policy.json"
+	--assume-role-policy-document "file://${this_dir}/dbg-assume-role-trust-policy.json"
 
 aws iam create-policy \
 	--policy-name DuckbillGroupBilling \
@@ -48,6 +73,7 @@ aws iam create-policy \
 	--policy-name DuckbillGroupResourceDiscovery \
 	--policy-document "file://${this_dir}/resource-discovery-policy.json"
 
+# Denies access to all but the CUR bucket. Only relevant because the ResourceDiscoveryPolicy grants S3 access
 aws iam create-policy \
 	--policy-name DuckbillGroupDenySensitiveAccess \
 	--policy-document "file://${this_dir}/deny-sensitive-data-policy.json"
@@ -55,14 +81,6 @@ aws iam create-policy \
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
 	--policy-arn arn:aws:iam::aws:policy/job-function/ViewOnlyAccess
-
-aws iam attach-role-policy \
-	--role-name DuckbillGroupRole \
-	--policy-arn arn:aws:iam::aws:policy/job-function/Billing
-
-aws iam attach-role-policy \
-	--role-name DuckbillGroupRole \
-	--policy-arn arn:aws:iam::aws:policy/AWSSavingsPlansReadOnlyAccess
 
 aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
@@ -76,4 +94,23 @@ aws iam attach-role-policy \
 	--role-name DuckbillGroupRole \
 	--policy-arn "arn:aws:iam::${account_number}:policy/DuckbillGroupDenySensitiveAccess"
 
+echo "Setting up Skyway access"
+# Skyway access
+# Only needed on payer account
+aws iam create-role \
+	--role-name SkywayRole \
+	--assume-role-policy-document "file://${this_dir}/skyway-assume-role-trust-policy.json"
+
+aws iam create-policy \
+	--policy-name SkywayAccess \
+	--policy-document "file://${this_dir}/billing-policy.json"
+
+aws iam attach-role-policy \
+	--role-name SkywayRole \
+	--policy-arn "arn:aws:iam::${account_number}:policy/SkywayAccess"
+
+# Create CUR config
+data_export_file="file://${this_dir}/data-export.json"
+data_export_content=$(cat "$data_export_file")
+aws bcm-data-exports create-export --export "'$data_export_content'"
 echo "Done!"
