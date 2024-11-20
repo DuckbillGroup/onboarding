@@ -110,7 +110,5 @@ aws iam attach-role-policy \
 	--policy-arn "arn:aws:iam::${account_number}:policy/SkywayAccess"
 
 # Create CUR config
-data_export_file="file://${this_dir}/data-export.json"
-data_export_content=$(cat "$data_export_file")
-aws bcm-data-exports create-export --export "'$data_export_content'"
+aws bcm-data-exports create-export --export file://data-export.json
 echo "Done!"
