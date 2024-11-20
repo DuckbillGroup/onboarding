@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2094
+
 # Creates all AWS IAM resources required for Duckbill Group remote access.
 
 set -euo pipefail
