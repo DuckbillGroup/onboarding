@@ -6,6 +6,8 @@ terraform.tfplan
 
 .DS_Store
 
+.venv
+
 # This file is templated
 **/cur-ingest-pipeline-policy.json
 **/assume-role-trust-policy.json

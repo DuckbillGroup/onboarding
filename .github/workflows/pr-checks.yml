@@ -10,13 +10,9 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      # Python, terraform 0.12 and shellcheck are already installed in the Ubuntu 18.04 runner
-      # https://github.com/actions/virtual-environments/blob/master/images/linux/Ubuntu1804-README.md
-      - name: Install dependencies
-        run: pip install cfn-lint
-      - name: Lint AWS-CLI scripts
-        run: cd aws-cli && make lint
-      - name: Lint CloudFormation YAML
-        run: cd cloudformation && make lint
-      - name: Lint Terraform
-        run: cd terraform && make lint
+      - name: Install Parliament
+        run: pip install parliament
+      - name: Shellcheck
+        run: shellcheck *.sh
+      - name: Lint IAM policy documents
+        run: find . \( -depth 1 -type f -iname "*.json" -o -depth 1 -type f -iname "*.json.template" \) -exec jq -c . {} +
