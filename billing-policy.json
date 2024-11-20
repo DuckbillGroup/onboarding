@@ -2,7 +2,7 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "",
+            "Sid": "AllowS3CURBucketAccess",
             "Effect": "Allow",
             "Action": [
                 "s3:ListBucket",
@@ -14,7 +14,7 @@
             ]
         },
         {
-            "Sid": "",
+            "Sid": "BillingDataAccess",
             "Effect": "Allow",
             "Action": [
                 "account:Get*",
