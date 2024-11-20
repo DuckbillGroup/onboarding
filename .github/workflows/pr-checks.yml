@@ -11,6 +11,6 @@ jobs:
         with:
           python-version: 3.8
       - name: Shellcheck
-        run: shellcheck *.sh
+        run: shellcheck ${{ github.workspace }}/*.sh
       - name: Lint IAM policy documents
         run: find ${{ github.workspace }} \( -depth 1 -type f -iname "*.json" -o -depth 1 -type f -iname "*.json.template" \) -exec jq -c . {} +
