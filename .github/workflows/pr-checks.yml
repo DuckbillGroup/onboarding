@@ -10,9 +10,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: Install Parliament
-        run: pip install parliament
       - name: Shellcheck
-        run: shellcheck *.sh
+        run: shellcheck ${{ github.workspace }}/*.sh
       - name: Lint IAM policy documents
-        run: find . \( -depth 1 -type f -iname "*.json" -o -depth 1 -type f -iname "*.json.template" \) -exec jq -c . {} +
+        run: find ${{ github.workspace }} \( -depth 1 -type f -iname "*.json" -o -depth 1 -type f -iname "*.json.template" \) -exec jq -c . {} +
