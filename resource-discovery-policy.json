@@ -48,7 +48,6 @@
                 "lightsail:GetLoadBalancers",
                 "lightsail:GetRelationalDatabases",
                 "macie2:Describe*",
-                "macie2:Describe*",
                 "macie2:List*",
                 "macie2:Get*",
                 "medialive:Describe*",
