@@ -14,7 +14,7 @@
     "S3Destination": {
       "S3Bucket": "CUR_BUCKET_NAME",
       "S3OutputConfigurations": {
-        "Compression": "PARQUET",
+        "Compression": "PARQUET"
         "Format": "PARQUET",
         "OutputType": "CUSTOM",
         "Overwrite": "OVERWRITE_REPORT"

@@ -38,7 +38,7 @@ sed "s/EXTERNAL_ID/${external_id}/g" \
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/skyway-assume-role-trust-policy.json.template" > "${this_dir}/skyway-assume-role-trust-policy.json"
 
-echo "Logged into AWS as $${user_arn}"
+echo "Logged into AWS as ${user_arn}"
 echo "Adding role and policies..."
 
 echo "Setting up Duckbill Group access"
