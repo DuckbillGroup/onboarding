@@ -19,4 +19,10 @@ jobs:
       - name: Shellcheck
         run: shellcheck ${{ github.workspace }}/*.sh
       - name: Lint IAM policy documents
-        run: find ${{ github.workspace }} -maxdepth 1 \( -name '*.json' -o -name '*.json.template' \) -exec jq -c . {} +
+        run: |
+          set -e
+          for f in $(find . -maxdepth 1 \( -name '*.json' -o -name '*.json.template' \))
+          do
+            echo "Checking JSON for $f"
+            jq -reM . $f 1>/dev/null || exit 1
+          done
