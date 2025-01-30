@@ -11,17 +11,6 @@ account_number=$(aws sts get-caller-identity --output text --query 'Account' | t
 
 cat <<EOM
 
-Please enter your customer name slug. This is a short, lower-case slug
-that identifies your company, e.g. 'acme-corp'
-
-Duckbill Group will need to know this value, so that we can set up our own
-infrastructure for you.
-
-EOM
-read -rp 'Customer name slug: ' customer_name_slug
-
-cat <<EOM
-
 Please enter the External ID provided to you by Duckbill Cloud Economists
 
 EOM
@@ -33,11 +22,6 @@ Please enter the name of the S3 bucket where your Cost & Usage Report resides.
 
 EOM
 read -rp 'S3 Bucket Name: ' cur_bucket_name
-
-internal_customer_id=$(echo "${external_id}" | awk -F '-' '{print $1}' | tr -d '\r\n')
-
-sed "s/CUSTOMER_NAME_SLUG/${customer_name_slug}/g;s/INTERNAL_CUSTOMER_ID/${internal_customer_id}/g" \
-	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
 
 sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
