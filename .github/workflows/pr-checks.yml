@@ -1,21 +1,17 @@
 name: PR Checks
 on:
   push:
-    branches: [ main, test ]
+    branches: [ main ]
   workflow_dispatch:
     branches: [ main ]
   pull_request:
-    branches: [ main, test ]
+    branches: [ main ]
 jobs:
   run-linters:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      # - name: Set up Python 3.8
-      #   uses: actions/setup-python@v5
-      #   with:
-      #     python-version: 3.8
       - name: Shellcheck
         run: shellcheck ${{ github.workspace }}/*.sh
       - name: Lint IAM policy documents
