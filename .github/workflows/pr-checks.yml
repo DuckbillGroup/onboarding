@@ -11,12 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
+        uses: actions/checkout@v4
       - name: Shellcheck
         run: shellcheck ${{ github.workspace }}/*.sh
       - name: Lint IAM policy documents
-        run: find ${{ github.workspace }} -maxdepth 1 \( -name '*.json' -o -name '*.json.template' \) -exec jq -c . {} +
+        run: |
+          set -e
+          for f in $(find ${{ github.workspace }} -maxdepth 1 \( -name '*.json' -o -name '*.json.template' \))
+          do
+            echo "Checking JSON for $f"
+            jq -reM . $f 1>/dev/null || exit 1
+          done
