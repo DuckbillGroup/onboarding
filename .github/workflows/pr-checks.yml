@@ -17,7 +17,7 @@ jobs:
       - name: Lint IAM policy documents
         run: |
           set -e
-          for f in $(find . -maxdepth 1 \( -name '*.json' -o -name '*.json.template' \))
+          for f in $(find ${{ github.workspace }} -maxdepth 1 \( -name '*.json' -o -name '*.json.template' \))
           do
             echo "Checking JSON for $f"
             jq -reM . $f 1>/dev/null || exit 1
