@@ -24,6 +24,7 @@
                 "dms:Describe*",
                 "ec2:Describe*",
                 "ec2:GetIpam*",
+                "ec2:GetTransitGateway*",
                 "eks:Describe*",
                 "eks:List*",
                 "elasticbeanstalk:ListTagsForResource",
