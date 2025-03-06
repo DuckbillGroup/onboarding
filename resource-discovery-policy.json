@@ -33,6 +33,8 @@
                 "es:Get*",
                 "es:List*",
                 "fsx:Describe*",
+                "globalaccelerator:Describe*",
+                "globalaccelerator:List*",
                 "glue:Get*",
                 "glue:List*",
                 "health:Describe*",
