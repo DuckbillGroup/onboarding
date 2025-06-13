@@ -90,6 +90,8 @@
                 "snowball:List*",
                 "sns:GetTopicAttributes",
                 "ssm:Describe*",
+                "states:List*",
+                "states:Describe*",
                 "tag:Get*",
                 "timestream:Describe*",
                 "timestream:List*",
