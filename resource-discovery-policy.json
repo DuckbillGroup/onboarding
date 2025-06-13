@@ -92,6 +92,7 @@
                 "ssm:Describe*",
                 "states:List*",
                 "states:Describe*",
+                "states:GetExecutionHistory",
                 "tag:Get*",
                 "timestream:Describe*",
                 "timestream:List*",
