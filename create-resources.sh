@@ -27,16 +27,25 @@ sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
 
 sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/data-export.json" > "${this_dir}/data-export.json"
+	"${this_dir}/data-export-hourly.json" > "${this_dir}/data-export-hourly.json"
+
+sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+	"${this_dir}/data-export-daily.json" > "${this_dir}/data-export-daily.json"
 
 sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/billing-policy.json" > "${this_dir}/billing-policy.json"
+
+sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
+	"${this_dir}/skyway-bucket-policy.json" > "${this_dir}/skyway-bucket-policy.json"
 
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/dbg-assume-role-trust-policy.json.template" > "${this_dir}/dbg-assume-role-trust-policy.json"
 
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/skyway-assume-role-trust-policy.json.template" > "${this_dir}/skyway-assume-role-trust-policy.json"
+
+sed "s/CUSTOMER_ACCOUNT_NUMBER/${account_number}/g" \
+	"${this_dir}/skyway-bucket-policy.json" > "${this_dir}/skyway-bucket-policy.json"
 
 echo "Logged into AWS as ${user_arn}"
 echo "Adding role and policies..."
@@ -94,5 +103,9 @@ aws iam attach-role-policy \
 	--policy-arn "arn:aws:iam::${account_number}:policy/SkywayAccess"
 
 # Create CUR config
-aws bcm-data-exports create-export --export file://data-export.json
+aws bcm-data-exports create-export --export file://data-export-hourly.json
+aws bcm-data-exports create-export --export file://data-export-daily.json
+
+# Set bucket policy on the bucket containing the CUR
+aws s3api put-bucket-policy --bucket {{ cur_bucket_name }} --cli-input-json file://skyway-bucket-policy.json
 echo "Done!"

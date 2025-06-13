@@ -1,0 +1,51 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowSkywayRoleReadOnly",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::436564582841:role/customer-bucket-reader"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectVersion",
+                "s3:GetObjectTagging",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::{{ CUR_BUCKET_NAME }}",
+                "arn:aws:s3:::{{ CUR_BUCKET_NAME }}/*"
+            ]
+        },
+        {
+            "Sid": "EnableAWSDataExportsToWriteToS3AndCheckPolicy",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": [
+                    "billingreports.amazonaws.com",
+                    "bcm-data-exports.amazonaws.com"
+                ]
+            },
+            "Action": [
+                "s3:PutObject",
+                "s3:GetBucketPolicy"
+            ],
+            "Resource": [
+                "arn:aws:s3:::{{ CUR_BUCKET_NAME }}/*",
+                "arn:aws:s3:::{{ CUR_BUCKET_NAME }}"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "aws:SourceAccount": "{{ CUSTOMER_ACCOUNT_NUMBER }}"
+                },
+                "ArnLike": {
+                    "aws:SourceArn": [
+                        "arn:aws:cur:us-east-1:{{ CUSTOMER_ACCOUNT_NUMBER }}:definition/*",
+                        "arn:aws:bcm-data-exports:us-east-1:{{ CUSTOMER_ACCOUNT_NUMBER }}:export/*"
+                    ]
+                }
+            }
+        }
+    ]
+}
