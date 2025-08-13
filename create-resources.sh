@@ -23,20 +23,25 @@ Please enter the name of the S3 bucket where your Cost & Usage Report resides.
 EOM
 read -rp 'S3 Bucket Name: ' cur_bucket_name
 
+# Detect sed version for cross-platform compatibility by checking if `sed --version` succeeds (GNU sed supports this flag, BSD/MacOS sed doesn't).
+if sed --version >/dev/null 2>&1; then
+    # GNU sed
+    SED_INPLACE=(sed -i)
+else
+    # On macOS, sed -i requires either a backup suffix or an empty string.
+    SED_INPLACE=(sed -i '')
+fi
+
 sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
 
-sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/data-export-hourly.json" > "${this_dir}/data-export-hourly.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/data-export-hourly.json"
 
-sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/data-export-daily.json" > "${this_dir}/data-export-daily.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/data-export-daily.json"
 
-sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/billing-policy.json" > "${this_dir}/billing-policy.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/billing-policy.json"
 
-sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/skyway-bucket-policy.json" > "${this_dir}/skyway-bucket-policy.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/skyway-bucket-policy.json"
 
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/dbg-assume-role-trust-policy.json.template" > "${this_dir}/dbg-assume-role-trust-policy.json"
@@ -44,8 +49,7 @@ sed "s/EXTERNAL_ID/${external_id}/g" \
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/skyway-assume-role-trust-policy.json.template" > "${this_dir}/skyway-assume-role-trust-policy.json"
 
-sed "s/CUSTOMER_ACCOUNT_NUMBER/${account_number}/g" \
-	"${this_dir}/skyway-bucket-policy.json" > "${this_dir}/skyway-bucket-policy.json"
+"${SED_INPLACE[@]}" "s/CUSTOMER_ACCOUNT_NUMBER/${account_number}/g" "${this_dir}/skyway-bucket-policy.json"
 
 echo "Logged into AWS as ${user_arn}"
 echo "Adding role and policies..."
