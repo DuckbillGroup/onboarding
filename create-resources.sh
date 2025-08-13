@@ -32,12 +32,24 @@ else
     SED_INPLACE=(sed -i '')
 fi
 
+# Get bucket region
+# (`null` means us-east-1 and `EU` means eu-west-1,
+# see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLocation.html#API_GetBucketLocation_ResponseSyntax)
+bucket_region=$(aws s3api get-bucket-location --bucket "${cur_bucket_name}" --query 'LocationConstraint' --output text)
+if [ "$bucket_region" = "null" ]; then
+    bucket_region="us-east-1"
+elif [ "$bucket_region" = "EU" ]; then
+    bucket_region="eu-west-1"
+fi
+
 sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
 
 "${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/data-export-hourly.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_REGION/${bucket_region}/g" "${this_dir}/data-export-hourly.json"
 
 "${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/data-export-daily.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_REGION/${bucket_region}/g" "${this_dir}/data-export-daily.json"
 
 "${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/billing-policy.json"
 
