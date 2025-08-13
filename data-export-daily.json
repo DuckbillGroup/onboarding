@@ -23,7 +23,7 @@
       "S3Region": "us-west-2"
     }
   },
-  "Name": "skyway-export",
+  "Name": "skyway-export-daily",
   "RefreshCadence": {
     "Frequency": "SYNCHRONOUS"
   }
