@@ -123,5 +123,5 @@ aws bcm-data-exports create-export --export file://data-export-hourly.json
 aws bcm-data-exports create-export --export file://data-export-daily.json
 
 # Set bucket policy on the bucket containing the CUR
-aws s3api put-bucket-policy --bucket {{ cur_bucket_name }} --cli-input-json file://skyway-bucket-policy.json
+aws s3api put-bucket-policy --bucket "${cur_bucket_name}" --cli-input-json file://skyway-bucket-policy.json
 echo "Done!"
