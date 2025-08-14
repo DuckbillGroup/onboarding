@@ -20,10 +20,10 @@
         "Overwrite": "OVERWRITE_REPORT"
       },
       "S3Prefix": "skyway",
-      "S3Region": "us-west-2"
+      "S3Region": "CUR_BUCKET_REGION"
     }
   },
-  "Name": "skyway-export",
+  "Name": "skyway-export-hourly",
   "RefreshCadence": {
     "Frequency": "SYNCHRONOUS"
   }

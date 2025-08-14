@@ -23,20 +23,37 @@ Please enter the name of the S3 bucket where your Cost & Usage Report resides.
 EOM
 read -rp 'S3 Bucket Name: ' cur_bucket_name
 
+# Detect sed version for cross-platform compatibility by checking if `sed --version` succeeds (GNU sed supports this flag, BSD/MacOS sed doesn't).
+if sed --version >/dev/null 2>&1; then
+    # GNU sed
+    SED_INPLACE=(sed -i)
+else
+    # On macOS, sed -i requires either a backup suffix or an empty string.
+    SED_INPLACE=(sed -i '')
+fi
+
+# Get bucket region
+# (`null` means us-east-1 and `EU` means eu-west-1,
+# see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLocation.html#API_GetBucketLocation_ResponseSyntax)
+bucket_region=$(aws s3api get-bucket-location --bucket "${cur_bucket_name}" --query 'LocationConstraint' --output text)
+if [ "$bucket_region" = "null" ]; then
+    bucket_region="us-east-1"
+elif [ "$bucket_region" = "EU" ]; then
+    bucket_region="eu-west-1"
+fi
+
 sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
 	"${this_dir}/deny-sensitive-data-policy.json.template" > "${this_dir}/deny-sensitive-data-policy.json"
 
-sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/data-export-hourly.json" > "${this_dir}/data-export-hourly.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/data-export-hourly.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_REGION/${bucket_region}/g" "${this_dir}/data-export-hourly.json"
 
-sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/data-export-daily.json" > "${this_dir}/data-export-daily.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/data-export-daily.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_REGION/${bucket_region}/g" "${this_dir}/data-export-daily.json"
 
-sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/billing-policy.json" > "${this_dir}/billing-policy.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/billing-policy.json"
 
-sed "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" \
-	"${this_dir}/skyway-bucket-policy.json" > "${this_dir}/skyway-bucket-policy.json"
+"${SED_INPLACE[@]}" "s/CUR_BUCKET_NAME/${cur_bucket_name}/g" "${this_dir}/skyway-bucket-policy.json"
 
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/dbg-assume-role-trust-policy.json.template" > "${this_dir}/dbg-assume-role-trust-policy.json"
@@ -44,8 +61,7 @@ sed "s/EXTERNAL_ID/${external_id}/g" \
 sed "s/EXTERNAL_ID/${external_id}/g" \
 	"${this_dir}/skyway-assume-role-trust-policy.json.template" > "${this_dir}/skyway-assume-role-trust-policy.json"
 
-sed "s/CUSTOMER_ACCOUNT_NUMBER/${account_number}/g" \
-	"${this_dir}/skyway-bucket-policy.json" > "${this_dir}/skyway-bucket-policy.json"
+"${SED_INPLACE[@]}" "s/CUSTOMER_ACCOUNT_NUMBER/${account_number}/g" "${this_dir}/skyway-bucket-policy.json"
 
 echo "Logged into AWS as ${user_arn}"
 echo "Adding role and policies..."
@@ -107,5 +123,5 @@ aws bcm-data-exports create-export --export file://data-export-hourly.json
 aws bcm-data-exports create-export --export file://data-export-daily.json
 
 # Set bucket policy on the bucket containing the CUR
-aws s3api put-bucket-policy --bucket {{ cur_bucket_name }} --cli-input-json file://skyway-bucket-policy.json
+aws s3api put-bucket-policy --bucket "${cur_bucket_name}" --cli-input-json file://skyway-bucket-policy.json
 echo "Done!"
